@@ -3,6 +3,9 @@
 
 var url_base;
 /*sprawdzanie autoryzacji*/
+
+
+
 function check_authorization() {
     /*za kazdym razem przy przeladowaniu  pinguje strone i sprawdza w sesji czy jestem zalogowany*/
     $.ajax({

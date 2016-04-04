@@ -1,7 +1,5 @@
 
-            $.cookie('email', "email test", { expires: 14 });
-            $.cookie('password', "pass ", { expires: 14 });
-            $.cookie('remember', true, { expires: 14 });
+
 
 
 
@@ -16,6 +14,7 @@ function log_in() {
         window.login = ".";
     }
     $(function () {
+
         var url = "http://" + window.login + ":" + window.login_data[1].value + "@system.fastdata.com.pl:4567/framework/rin/leady?";
         $.ajax(url,
             {
