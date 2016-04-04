@@ -174,7 +174,7 @@ function render_leeds(data, destination) {
                 /*wyswietla czas do kontaktu */
                 time_remain(data[i].TARGETCONTACTDATE, preid, i, "Kontaktu");
             }
-            else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
+            else if (!data[i].OPENDATE ) {
                 /*wyswietla czas do otwarca */
                 time_remain(data[i].TARGETOPENDATE, preid, i, "Otwarcia");
             }
