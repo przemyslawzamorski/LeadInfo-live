@@ -174,7 +174,7 @@ function render_leeds(data, destination) {
                 /*wyswietla czas do kontaktu */
                 time_remain(data[i].TARGETCONTACTDATE, preid, i, "Kontaktu");
             }
-            else if (!data[i].OPENDATE ) {
+            else if (!data[i].OPENDATE) {
                 /*wyswietla czas do otwarca */
                 time_remain(data[i].TARGETOPENDATE, preid, i, "Otwarcia");
             }
@@ -261,9 +261,9 @@ function get_lead_info(this_id) {
     }
     if (object.STATUSCODE == "CLOSED") {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: green;">' + "Zamkniete" + '</span>';
-    }else if (object.STATUSCODE == "NEW") {
+    } else if (object.STATUSCODE == "NEW") {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: red;">' + "NEW" + '</span>';
-    }else {
+    } else {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: orange;">' + "Otwarte" + '</span>';
     }
     $("#modal-title").append(status);
@@ -298,8 +298,9 @@ function get_lead_info(this_id) {
         $("#modal-content").append("<tr><td>" + object.OPIS_KAMPANII + "</td><tr>  ");
     }
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
-    $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' + object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
-
+    if (object.FIRSTNAME && object.LASTNAME) {
+        $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' + object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
+    }
     var contact_info_link = "http://system.fastdata.com.pl:4567/framework/rin/lead_con/" + object.LEADID;
 
     /*dodawanie danych kontaktowych*/

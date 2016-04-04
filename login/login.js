@@ -1,7 +1,14 @@
 
+            $.cookie('email', "email test", { expires: 14 });
+            $.cookie('password', "pass ", { expires: 14 });
+            $.cookie('remember', true, { expires: 14 });
+
 
 
 function log_in() {
+
+
+
     /*jezeli nie to wyswietla panel login w tedy loguje po danych*/
     window.login_data = $("#login_form").serializeArray();
     window.login = login_data[0].value.toUpperCase();
@@ -24,9 +31,7 @@ function log_in() {
                     200: function () {
                         console.log("autoryzowano");
                         $("#login_error").css("display", "none");
-
-
-                            $("#leeds-content").load('leadinfo/index.html');
+                        $("#leeds-content").load('leadinfo/index.html');
 
                     }
                 }
