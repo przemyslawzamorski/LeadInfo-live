@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+
+<html lang="pl">
+
+<style>
+
+    .status-cell {
+        width: 32px !important;
+        padding-left: 9px !important;
+        padding-right: 9px !important;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    .warning {
+        color: #FC5151;
+        margin: 0px 0px 0px 0px;
+    }
+
+    th, td {
+        text-align: left !important;
+        padding: 5px 10px 5px 10px !important;
+        marging: 0px 50px 0px 50px !important;
+
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2 !important;
+    }
+
+    th {
+        background-color: #4CAF50 !important;
+        color: white !important;
+    }
+
+    .pagination-button {
+        margin: 3px 3px 3px 3px;
+        background-color: #6EB6E7 !important;
+        color: white !important;
+    }
+
+    .pagination-button-active {
+        margin: 3px 3px 3px 3px;
+
+        background-color: #3C8CC3 !important;
+        color: white !important;
+    }
+
+    .pagination-dots {
+        margin: 3px 3px 3px 3px;
+        background-color: white !important;
+        border: none !important;
+        color: black !important;
+    }
+
+    .pagination-inner {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        text-align: right !important;
+    }
+
+    button {
+
+        margin-top: 2px !important;
+    }
+
+    @media (min-width: 768px) {
+        .filter-side-button {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .filter-side-button {
+            padding-left: 0px !important;
+            padding-right: 0px !important;
+        }
+
+        .no-left-padding-mobile {
+            padding-left: 0px !important;
+        }
+
+        .filter-single-option-inner {
+            padding-left: 10px !important;
+        }
+    }
+
+    @media (min-width: 992px)and (max-width: 1999px ) {
+        .date-filter-select {
+            padding-right: 0px !important;
+        }
+    }
+
+    .filter-single-option-inner {
+        padding-bottom: 10px;
+    }
+
+    * {
+        font-family: 'Ubuntu', sans-serif;
+    }
+
+    #login {
+        height: 600px;
+        width: 600px;
+        background: -webkit-radial-gradient(white, #ababab); /* For Safari 5.1 to 6.0 */
+        background: -o-radial-gradient(white, #ababab); /* For Opera 11.6 to 12.0 */
+        background: -moz-radial-gradient(white, #ababab); /* For Fx 3.6 to 15 */
+        background: radial-gradient(white, #ababab); /* Standard syntax (must be last) */
+    }
+
+    tr:hover {
+        background-color: #CCFF99 !important;
+    }
+
+    .modal {
+        overflow: scroll !important;
+    }
+
+
+</style>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <!--fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Hind:400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700' rel='stylesheet' type='text/css'>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.min.css"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker3.min.css"/>
+    <link rel="stylesheet" type="text/css" href="leadinfo/leedsstyles.css">
+
+    <script src="leadinfo/jquery-2.2.0.js"></script>
+    <script src="leadinfo/leeds-scripts.js"></script>
+    <script src="leadinfo/bootstrap.js"></script>
+
+
+    <title>Aplikacja Leadinfo</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-2">
+</head>
+
+<body>
+<!--login menu-->
+
+
+
+<div id="leeds-content" >
+    <!--leads header-->
+    <div class="row" style="margin: 0px 0px 0px 0px ;">
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-8">
+            <h3 style="padding-left: 10px;"><i class="fa fa-cogs"> </i> <strong>Lead</strong>info </h3>
+        </div>
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-4 pull-right" style="padding: 0px 0px 0px 0px;">
+            <button style="float: right; margin-top: 20px !important; margin-right: 10px;" onclick="log_out()"><i
+                    class="fa fa-sign-out"></i> Wyloguj
+            </button>
+        </div>
+    </div>
+
+
+
+    <!-- leeds table -->
+    <table id="main-content">
+        <tr>
+            <th style='width: 32px;'></th>
+            <th style="width: 40%;">Numer lead</th>
+            <th>Data do :</th>
+            <th style="width: 32px;">O</th>
+            <th style="width: 32px !important;">K</th>
+        </tr>
+    </table>
+    <table id="new-leads">
+        <!-- nowe  -->
+    </table>
+    <table id="open-no-attribution">
+        <!-- otwarte bez przypisania  -->
+    </table>
+    <table id="my-leeds">
+        <!-- moje leady  -->
+    </table>
+
+
+    <!-- Modal informacji szczegółowych leeda -->
+    <div class="modal fade" id="leedsTable" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="close" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="modal-title"></h4>
+                </div>
+                <table class="modal-body" id="modal-content">
+                </table>
+                <div class="modal-footer">
+
+                    <div id="assign-error" class="alert alert-danger" role="alert" style="display:none;">
+                        Niestety zgloszenie zostalo juz przypisane przez kogos innego.
+                    </div>
+                    <div class="btn-group" id="modal-footer">
+
+                        <button id="closuser" type="button" class="btn btn-default" data-dismiss="modal">Zamknij
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal emaila -->
+    <div class="modal fade" id="emailTemplate" role="dialog">
+        <div class="modal-dialog" style="width:93% !important;">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="close" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-list"></span> Wyslij wiadomosc</h4>
+                </div>
+                <form id="email-form" class="form-inline">
+                    <div class="form-group"
+                         style="display:block; padding-left:15px;padding-right: 15px; padding-top:5px; padding-bottom:5px;">
+                        <label style="width:100px;">Do</label>
+                        <input type="text" class="form-control" id="cus-email" name="email">
+                    </div>
+                    <div class="form-group"
+                         style="display:block; padding-left:15px;padding-right: 15px; padding-top:5px; padding-bottom:5px;">
+                        <label style="width:100px;">Temat</label>
+                        <input type="text" class="form-control" id="subject" name="subject">
+                    </div>
+                    <div class="form-group"
+                         style="display:block; padding-left:15px;padding-right: 15px; padding-top:5px; padding-bottom:5px;">
+                        <label style="width:100px;">Szablon</label>
+                        <select id="email-content-select" onclick="append_email_content()" class="form-control">
+
+                        </select>
+                    </div>
+
+
+                    <div class="form-group"
+                         style="display:block; padding-left:15px; padding-top:5px;padding-right: 15px; padding-bottom:5px;padding-right:15px;">
+                        <label for="comment" style="width:150px;">Tresc wiadomosci</label>
+                        <textarea class="form-control" rows="5" id="comment" name="comment"
+                                  style="display:block; width:100%;"></textarea>
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove"> </span> Anuluj
+                    </button>
+                    <button onclick="send_email()" type="button" class="btn btn-default" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-send"> </span> Wyslij
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal dzwonienia -->
+    <div class="modal fade" id="callTemplate" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button id="close" type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"><span class="glyphicon glyphicon-phone-alt"> </span> Zadzwon</h4>
+                </div>
+                <div class="row" id="call-content">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 call-confirm-buttons" style="text-align:center;"
+                         id="call-succes">
+                        <button id="confirm-modal-call" style="background-color: #ffffff; border: none;"
+                                data-dismiss="modal" onclick="contact_accomplish()">
+                            <i class="fa fa-check-circle-o fa-5x"></i>
+
+                            <p>Dodzwonilem/lam sie</p>
+                        </button>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 call-confirm-buttons" style="text-align:center;"
+                         id="call-faild">
+                        <button style="background-color: #ffffff; border: none;" data-dismiss="modal">
+                            <i class="fa fa-times-circle-o fa-5x"></i>
+
+                            <p>NieDodzwonilem/lam sie</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+<script language="javascript">
+
+    $(document).ready(function () {
+        check_authorization();
+        setInterval(refresh_new, 60000);
+
+    });
+
+
+    $(function () {
+        if (navigator.userAgent.match(/(iPhone|Android.*Mobile)/i)) {
+            $('a[data-tel]').each(function () {
+                $(this).prop('href', 'tel:' + $(this).data('tel'));
+
+            });
+        }
+    });
+</script>
+</html>
