@@ -28,28 +28,6 @@ function check_authorization() {
     });
 }
 
-/*login*/
-function log_in() {
-    /*jezeli nie to wyswietla panel login w tedy loguje po danych*/
-    var login_data = $("#login_form").serializeArray();
-    var login = login_data[0].value.toUpperCase();
-    $(function () {
-        var url = "http://" + login + ":" + login_data[1].value + "@system.fastdata.com.pl:4567/framework/rin/leady?";
-        $.ajax(url,
-            {
-                statusCode: {
-                    401: function () {
-                        $("#login_error").css("visibility", "visible");
-                    },
-                    200: function () {
-                        $("#login").collapse('hide');
-                        $("#leeds-content").css("display", "block");
-                        init_load();
-                    }
-                }
-            });
-    });
-}
 
 /*logout*/
 function log_out() {
@@ -283,7 +261,9 @@ function get_lead_info(this_id) {
     }
     if (object.STATUSCODE == "CLOSED") {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: green;">' + "Zamkniete" + '</span>';
-    } else {
+    }else if (object.STATUSCODE == "NEW") {
+        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: red;">' + "NEW" + '</span>';
+    }else {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: orange;">' + "Otwarte" + '</span>';
     }
     $("#modal-title").append(status);
@@ -294,15 +274,22 @@ function get_lead_info(this_id) {
     if (object.PRZYPISANY) {
         $("#modal-content").append("<tr><td>Przypisany do</td><td> " + object.PRZYPISANY + "</td></tr>");
     }
-    $("#modal-content").append("<tr><td>Szacowana data otwarcia</td><td> " + object.TARGETOPENDATE.slice(0, 16) + "</td></tr>");
-    $("#modal-content").append("<tr><td>Data otwarcia</td><td> " + object.OPENDATE.slice(0, 16) + "</td></tr>");
+    if (object.TARGETOPENDATE) {
+        $("#modal-content").append("<tr><td>Szacowana data otwarcia</td><td> " + object.TARGETOPENDATE.slice(0, 16) + "</td></tr>");
+    }
+    if (object.OPENDATE) {
+        $("#modal-content").append("<tr><td>Data otwarcia</td><td> " + object.OPENDATE.slice(0, 16) + "</td></tr>");
+    }
     if (object.TARGETCONTACTDATE) {
         $("#modal-content").append("<tr><td>Szacowana data kontaktu</td><td> " + object.TARGETCONTACTDATE.slice(0, 16) + "</td></tr>");
     }
     if (object.CONTACTDATE) {
         $("#modal-content").append("<tr><td>Data kontaktu</td><td> " + object.CONTACTDATE.slice(0, 16) + "</td></tr>");
     }
-    $("#modal-content").append("<tr><td>Szacowana data zamkniecia</td><td> " + object.TARGETCLOSEDATE.slice(0, 16) + "</td></tr>");
+    if (object.TARGETCLOSEDATE) {
+
+        $("#modal-content").append("<tr><td>Szacowana data zamkniecia</td><td> " + object.TARGETCLOSEDATE.slice(0, 16) + "</td></tr>");
+    }
     if (object.CLOSEDATE) {
         $("#modal-content").append("<tr><td>Data zamkniecia</td><td> " + object.CLOSEDATE.slice(0, 16) + "</td></tr>");
     }
@@ -355,7 +342,7 @@ function get_lead_info(this_id) {
 
     /*button przypisania*/
     $("#assign").remove();
-    if (!window.object.PRZYPISANY) {
+    if (!window.object.PRZYPISANY || window.object.STATUSCODE == "NEW") {
         $('<button>', {id: 'assign'}).appendTo("#modal-footer");
         $("#assign").attr("class", "btn btn-default");
         $("#assign").text("Przypisz sobie");
