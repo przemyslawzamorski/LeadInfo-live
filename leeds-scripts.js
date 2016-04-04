@@ -6,7 +6,7 @@ var url_base;
 function check_authorization() {
     /*za kazdym razem przy przeladowaniu  pinguje strone i sprawdza w sesji czy jestem zalogowany*/
     $.ajax({
-        url: "https://system.fastdata.com.pl:4567/framework/standalone/leadinfo",
+        url: "http://system.fastdata.com.pl:4567/framework/standalone/leadinfo",
         type: "GET",
         data: {},
         dataType: "text xml",
@@ -34,7 +34,7 @@ function log_in() {
     var login_data = $("#login_form").serializeArray();
     var login = login_data[0].value.toUpperCase();
     $(function () {
-        var url = "https://" + login + ":" + login_data[1].value + "@system.fastdata.com.pl:4567/framework/rin/leady?";
+        var url = "http://" + login + ":" + login_data[1].value + "@system.fastdata.com.pl:4567/framework/rin/leady?";
         $.ajax(url,
             {
                 statusCode: {
@@ -53,7 +53,7 @@ function log_in() {
 
 /*logout*/
 function log_out() {
-    $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/rin/leady?",
+    $.ajax("http://a:a@system.fastdata.com.pl:4567/framework/rin/leady?",
         {
             /*wylogowuwyje i czyszczcze dane*/
             statusCode: {
@@ -73,7 +73,7 @@ function init_load() {
     /*pobieranie szablonow email*/
     $.ajax({
         type: 'GET',
-        url: "https://system.fastdata.com.pl:4567/framework/rin/EML_DEF?rodzaj=L",
+        url: "http://system.fastdata.com.pl:4567/framework/rin/EML_DEF?rodzaj=L",
         processData: true,
         data: {},
         crossDomain: true,
@@ -91,7 +91,7 @@ function init_load() {
     /* pobieranie usera oraz stopki*/
     $.ajax({
         type: 'GET',
-        url: "https://system.fastdata.com.pl:4567/framework/rin/usr_ja",
+        url: "http://system.fastdata.com.pl:4567/framework/rin/usr_ja",
         processData: true,
         data: {},
         crossDomain: true,
@@ -109,7 +109,7 @@ function init_load() {
 function get_leads() {
     $.ajax({
         type: 'GET',
-        url: "https://system.fastdata.com.pl:4567/framework/rin/mob_leady?",
+        url: "http://system.fastdata.com.pl:4567/framework/rin/mob_leady?",
         processData: true,
         data: {},
         crossDomain: true,
@@ -313,7 +313,7 @@ function get_lead_info(this_id) {
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
     $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' + object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
 
-    var contact_info_link = "https://system.fastdata.com.pl:4567/framework/rin/lead_con/" + object.LEADID;
+    var contact_info_link = "http://system.fastdata.com.pl:4567/framework/rin/lead_con/" + object.LEADID;
 
     /*dodawanie danych kontaktowych*/
     $.getJSON(contact_info_link, function (data) {
@@ -369,7 +369,7 @@ function contact_accomplish() {
     $.ajax({
         async: true,
         crossDomain: true,
-        url: "https://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_KONTAKT_WYKONANY",
+        url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_KONTAKT_WYKONANY",
         method: "POST",
         data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n"
     }).done(function (response) {
@@ -425,7 +425,7 @@ function send_email() {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "https://system.fastdata.com.pl:4567/framework/ope/MOB_LEAD_MENU_WYSLIJ_EMAIL",
+        "url": "http://system.fastdata.com.pl:4567/framework/ope/MOB_LEAD_MENU_WYSLIJ_EMAIL",
         "method": "POST",
         "data": "{\"recpient\":" + '"' + emai_content[0].value + '"' + ",\"subject\":" + '"' + emai_content[1].value + '"' + ",\"tresc\":" + email_text + "}"
     };
@@ -451,7 +451,7 @@ function assign() {
         /*dodaj folder*/
         async: true,
         crossDomain: true,
-        url: "https://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_DODAJ_FOLDER",
+        url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_DODAJ_FOLDER",
         method: "POST",
         data: {LEADYLEADID: window.object.LEADID},
         success: function (data) {
@@ -459,7 +459,7 @@ function assign() {
                 /*dodaj folder*/
                 async: true,
                 crossDomain: true,
-                url: "https://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_UAKT_SATUS",
+                url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_UAKT_SATUS",
                 method: "POST",
                 data: {LEADYLEADID: window.object.LEADID},
                 success: function (data) {
