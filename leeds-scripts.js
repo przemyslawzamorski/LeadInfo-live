@@ -82,6 +82,7 @@ function init_load() {
             window.footer = data.results[0].STOPKA_MAIL;
             window.user = data.results[0];
             window.usr_short = window.user.SKROT;
+            console.log(window.usr_short);
             get_leads();
         }
     });
@@ -100,16 +101,19 @@ function get_leads() {
             window.new_leads = $.grep(data.results, function (e) {
                 return e.STATUSCODE == "NEW"
             });
+            console.log('new',window.new_leads);
             render_leeds(window.new_leads, "new-leads");
 
             window.open_with = $.grep(data.results, function (e) {
                 return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA;
             });
+            console.log('open with',window.open_with);
             render_leeds(window.open_with, "open-no-attribution");
 
             window.my_leeds = $.grep(data.results, function (e) {
-                return e.UPRAWNIENIA_PRACA == window.usr_short;
+                return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN";
             });
+            console.log('my',window.my_leeds);
             render_leeds(window.my_leeds, "my-leeds");
         }
     });
@@ -464,17 +468,12 @@ function assign() {
             });
         }
     });
-
-
-
-
 }
 
 /*odswiezanie nowych leedow*/
 function refresh_new() {
     console.log("odswiezenoe");
     get_leads();
-
 }
 
 
