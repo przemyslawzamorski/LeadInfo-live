@@ -1,16 +1,8 @@
-
-
-
-
-
 function log_in() {
 
-
-
-    /*jezeli nie to wyswietla panel login w tedy loguje po danych*/
     window.login_data = $("#login_form").serializeArray();
     window.login = login_data[0].value.toUpperCase();
-    if (window.login_data[1].value == "" && window.login == "" ){
+    if (window.login_data[1].value == "" && window.login == "") {
         window.login = ".";
     }
     $(function () {

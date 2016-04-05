@@ -1,6 +1,4 @@
 /* TODO system logowania i wylogowania*/
-
-
 var url_base;
 /*sprawdzanie autoryzacji*/
 
@@ -49,6 +47,8 @@ function log_out() {
             }
         });
 }
+
+
 /*inicjalne pobranie danych*/
 function init_load() {
     /*pobieranie szablonow email*/
@@ -78,6 +78,7 @@ function init_load() {
         crossDomain: true,
         dataType: "json",
         success: function (data) {
+            console.log('usr',data);
             window.footer = data.results[0].STOPKA_MAIL;
             window.user = data.results[0];
             window.usr_short = window.user.SKROT;
@@ -257,7 +258,7 @@ function get_lead_info(this_id) {
     var status = '';
     var nazwa_leedu = '';
 
-    /*append header to leeds information modal */
+    /*dodawanie naglowku do okna modalnego */
     $("#modal-title").empty();
     if (object.KAMPANIA) {
         var nazwa_leedu = object.KAMPANIA
@@ -369,7 +370,8 @@ function contact_accomplish() {
             console.log("blad");
         } else {
             console.log("pomyslnie sie skontaktowalismy");
-            get_lead_info(window.click_id);
+             get_lead_info(window.click_id);
+             init_load();
 
         }
     });
@@ -423,7 +425,7 @@ function send_email() {
 
     $.ajax(settings).done(function (response) {
         console.log(response);
-        contact_accomplish()
+        contact_accomplish();
     });
 }
 
@@ -455,15 +457,16 @@ function assign() {
                 data: {LEADYLEADID: window.object.LEADID},
                 success: function (data) {
                     console.log("sukces");
+                    /*przeladowuje okno modalne widoku szczegolowego i leedy w tabeli */
+                    get_lead_info(window.click_id);
+                    init_load();
                 }
             });
         }
     });
 
 
-    /*przeladowuje okno modalne widoku szczegolowego i leedy w tabeli */
-    get_lead_info(window.click_id);
-    init_load();
+
 
 }
 
