@@ -167,7 +167,7 @@ function render_leeds(data, destination) {
             }
 
             /*dodawanie id leada oraz nazwy od kogo  */
-            $("#" + preid + i).append("<td>" + data[i].LEADID + "</br>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</td>");
+            $("#" + preid + i).append("<td style='width: 50% !important;'>" + data[i].LEADID + "</br><p style=' word-break: break-all;'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
 
             /*wyswietlanie czasu*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
@@ -228,10 +228,10 @@ function time_remain(time_given, preid, i, status) {
         var time_status = status + " : " + diffMins + " minut";
     }
     if (diffDays >= 0 && diffHrs >= 0 && diffMins >= 0) {
-        $("#" + preid + i).append("<td>" + time_status + "</td>");
+        $("#" + preid + i).append("<td style='width: 50% !important;'>" + time_status + "</td>");
 
     } else {
-        $("#" + preid + i).append("<td><p class='warning'>" + time_status + "</p></td>");
+        $("#" + preid + i).append("<td style='width: 50% !important;'><p class='warning' >" + time_status + "</p></td>");
     }
 }
 
