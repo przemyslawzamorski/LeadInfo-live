@@ -306,7 +306,8 @@ function get_lead_info(this_id) {
     }
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
     if (object.FIRSTNAME && object.LASTNAME) {
-        $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' + object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
+        $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
+        object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
     }
     var contact_info_link = "http://system.fastdata.com.pl:4567/framework/rin/lead_con/" + object.LEADID;
 
