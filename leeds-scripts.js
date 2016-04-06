@@ -497,11 +497,6 @@ function assign() {
 
 }
 
-/*odswiezanie nowych leedow*/
-function refresh_new() {
-    console.log("odswiezenoe");
-    get_leads();
-}
 
 
 
