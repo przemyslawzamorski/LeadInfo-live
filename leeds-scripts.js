@@ -269,7 +269,7 @@ function get_lead_info(this_id) {
     if (object.STATUSCODE == "CLOSED") {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: green;">' + "Zamkniete" + '</span>';
     } else if (object.STATUSCODE == "NEW") {
-        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: red;">' + "NEW" + '</span>';
+        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: red;">' + "Nowy" + '</span>';
     } else {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: orange;">' + "Otwarte" + '</span>';
     }
