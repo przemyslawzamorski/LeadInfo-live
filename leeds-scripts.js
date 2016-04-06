@@ -306,7 +306,12 @@ function get_lead_info(this_id) {
         $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Opis </th><th>  </th></tr>');
         $("#modal-content").append("<tr><td>" + object.OPIS_KAMPANII + "</td><tr>  ");
     }
+
+    /* //Dane kontaktowe //*/
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
+    /*gif doładowywania danych kontaktowych */
+    $("#modal-content").append(' <div id="contact_info_load" style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
+
     if (object.FIRSTNAME && object.LASTNAME) {
         $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
         object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
@@ -315,8 +320,10 @@ function get_lead_info(this_id) {
 
     /*dodawanie danych kontaktowych*/
     $.getJSON(contact_info_link, function (data) {
-        console.log(data);
 
+        /*usuniecie gifu doladowania*/
+        $("#contact_info_load").remove();
+        console.log(data);
 
         /* dodawanie numeru telefonu kom */
         if (data.PHONEMOBILE || data.PHONEHOME) {
