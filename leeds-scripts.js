@@ -50,7 +50,8 @@ function log_out() {
 
 /*inicjalne pobranie danych*/
 function init_load() {
-      $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
+    /*gif doładowywania glownych leadow */
+    $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
     /*pobieranie szablonow email*/
     $.ajax({
         type: 'GET',
@@ -315,24 +316,29 @@ function get_lead_info(this_id) {
     /*dodawanie danych kontaktowych*/
     $.getJSON(contact_info_link, function (data) {
         console.log(data);
-        /* dodawanie numeru telefonu kom */
+
 
         /* dodawanie numeru telefonu kom */
         if (data.PHONEMOBILE || data.PHONEHOME) {
             $("#modal-content").append('</tr><tr><td><i class="fa fa-mobile"></i><strong> Numer telefonu</strong></td><td> </td></tr>');
 
             if (data.PHONEMOBILE) {
-                var button = '<button><a href="tel:' + data.PHONEMOBILE + '" onclick="mod()" >Zadzwon</a></button>';
                 $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
                 $("#numberCell").append("<td>" + data.PHONEMOBILE + "</td> ");
-                $("#numberCell").append(button);
+                if (window.object.UPRAWNIENIA_PRACA) {
+                    var button = '<button><a href="tel:' + data.PHONEMOBILE + '" onclick="mod()" >Zadzwon</a></button>';
+                    $("#numberCell").append(button);
+                }
             }
 
             if (data.PHONEHOME) {
-                var button = '<button><a href="tel:' + data.PHONEHOME + '" onclick="mod()" >Zadzwon</a></button>';
+
                 $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
                 $("#numberCell").append("<td>" + data.PHONEHOME + "</td> ");
-                $("#numberCell").append(button);
+                if (window.object.UPRAWNIENIA_PRACA) {
+                    var button = '<button><a href="tel:' + data.PHONEHOME + '" onclick="mod()" >Zadzwon</a></button>';
+                    $("#numberCell").append(button);
+                }
             }
         }
 
@@ -342,11 +348,13 @@ function get_lead_info(this_id) {
             $("#modal-content").append('<tr><td><i class="fa fa-envelope"></i><strong> Adres email</strong></td><td> </td></tr>');
             $('<tr>', {id: "emailCell"}).appendTo('#modal-content');
             $("#emailCell").append("<td>" + data.EMAIL + "</td> ");
-            $('<button>', {id: 'email'}).appendTo("#emailCell");
-            $("#email").attr("data-toggle", "modal");
-            $("#email").attr("data-target", "#emailTemplate");
-            $("#email").attr("onclick", "get_email_content()");
-            $("#email").text("Wyslij wiadomosc");
+            if (window.object.UPRAWNIENIA_PRACA) {
+                $('<button>', {id: 'email'}).appendTo("#emailCell");
+                $("#email").attr("data-toggle", "modal");
+                $("#email").attr("data-target", "#emailTemplate");
+                $("#email").attr("onclick", "get_email_content()");
+                $("#email").text("Wyslij wiadomosc");
+            }
         }
     });
 
@@ -463,8 +471,8 @@ function assign() {
                 success: function (data) {
                     console.log("zrobił status");
                     /*przeladowanie*/
-                     init_load();
-                     get_lead_info(window.click_id);
+                    init_load();
+                    get_lead_info(window.click_id);
                 }
 
             }).done(function (response) {
