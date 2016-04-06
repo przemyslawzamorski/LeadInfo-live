@@ -268,12 +268,15 @@ function get_lead_info(this_id) {
     if (object.KAMPANIA) {
         var nazwa_leedu = object.KAMPANIA
     }
-    if (object.STATUSCODE == "CLOSED") {
-        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: green;">' + "Zamkniete" + '</span>';
-    } else if (object.STATUSCODE == "NEW") {
+    if (object.STATUSCODE == "NEW") {
         status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: red;">' + "Nowy" + '</span>';
     } else {
-        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: orange;">' + "Otwarte" + '</span>';
+        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: orange;">' + "Otwarty";
+        if (object.CONTACTDATE) {
+            status += ' - skontaktowany</span>';
+        } else {
+            status += ' - nieskontaktowany</span>';
+        }
     }
     $("#modal-title").append(status);
 
@@ -310,7 +313,7 @@ function get_lead_info(this_id) {
     /* //Dane kontaktowe //*/
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
     /*gif doładowywania danych kontaktowych */
-    $("#modal-content").append(' <div id="contact_info_load" style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
+    $("#modal-content").append(' <div id="contact_info_load" class="col-centered" style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
 
     if (object.FIRSTNAME && object.LASTNAME) {
         $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
