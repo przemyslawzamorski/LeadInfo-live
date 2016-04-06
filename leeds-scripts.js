@@ -50,6 +50,7 @@ function log_out() {
 
 /*inicjalne pobranie danych*/
 function init_load() {
+      $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
     /*pobieranie szablonow email*/
     $.ajax({
         type: 'GET',
@@ -462,8 +463,8 @@ function assign() {
                 success: function (data) {
                     console.log("zrobił status");
                     /*przeladowanie*/
-                     get_lead_info(window.click_id);
                      init_load();
+                     get_lead_info(window.click_id);
                 }
 
             }).done(function (response) {
