@@ -450,24 +450,17 @@ function assign() {
         crossDomain: true,
         url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_DODAJ_FOLDER",
         method: "POST",
-        data: {LEADYLEADID: window.object.LEADID},
+        data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         success: function (data) {
-            $.ajax({
-                /*dodaj folder*/
-                async: true,
-                crossDomain: true,
-                url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_UAKT_SATUS",
-                method: "POST",
-                data: {LEADYLEADID: window.object.LEADID},
-                success: function (data) {
-                    console.log("sukces");
-                    /*przeladowuje okno modalne widoku szczegolowego i leedy w tabeli */
-                    get_lead_info(window.click_id);
-                    init_load();
-                }
-            });
+
+
+
         }
+    }).done(function (response) {
+        console.log(response);
+
     });
+
 }
 
 /*odswiezanie nowych leedow*/
