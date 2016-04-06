@@ -3,7 +3,6 @@ var url_base;
 /*sprawdzanie autoryzacji*/
 
 
-
 function check_authorization() {
     /*za kazdym razem przy przeladowaniu  pinguje strone i sprawdza w sesji czy jestem zalogowany*/
     $.ajax({
@@ -78,7 +77,7 @@ function init_load() {
         crossDomain: true,
         dataType: "json",
         success: function (data) {
-            console.log('usr',data);
+            console.log('usr', data);
             window.footer = data.results[0].STOPKA_MAIL;
             window.user = data.results[0];
             window.usr_short = window.user.SKROT;
@@ -101,19 +100,19 @@ function get_leads() {
             window.new_leads = $.grep(data.results, function (e) {
                 return e.STATUSCODE == "NEW"
             });
-            console.log('new',window.new_leads);
+            console.log('new', window.new_leads);
             render_leeds(window.new_leads, "new-leads");
 
             window.open_with = $.grep(data.results, function (e) {
                 return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA;
             });
-            console.log('open with',window.open_with);
+            console.log('open with', window.open_with);
             render_leeds(window.open_with, "open-no-attribution");
 
             window.my_leeds = $.grep(data.results, function (e) {
                 return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN";
             });
-            console.log('my',window.my_leeds);
+            console.log('my', window.my_leeds);
             render_leeds(window.my_leeds, "my-leeds");
         }
     });
@@ -374,8 +373,8 @@ function contact_accomplish() {
             console.log("blad");
         } else {
             console.log("pomyslnie sie skontaktowalismy");
-             get_lead_info(window.click_id);
-             init_load();
+            get_lead_info(window.click_id);
+            init_load();
 
         }
     });
@@ -452,9 +451,24 @@ function assign() {
         method: "POST",
         data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         success: function (data) {
+            $.ajax({
+                /*uaktualnij status*/
+                async: true,
+                crossDomain: true,
+                url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_UAKT_SATUS",
+                method: "POST",
+                data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
+                success: function (data) {
+                    console.log("zrobił status");
+                    /*przeladowanie*/
+                     get_lead_info(window.click_id);
+                     init_load();
+                }
 
+            }).done(function (response) {
+                console.log(response);
 
-
+            });
         }
     }).done(function (response) {
         console.log(response);
