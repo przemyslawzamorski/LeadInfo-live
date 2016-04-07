@@ -486,6 +486,11 @@ function assign() {
 }
 
 
+function refresh_leads(){
+    get_leads();
+}
+
+
 
 
 
