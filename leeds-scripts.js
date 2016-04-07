@@ -474,13 +474,16 @@ function assign() {
 
             }).done(function (response) {
                 console.log(response);
+                $("#load_assign_gif").css("display","none");
+
+
 
             });
         }
     }).done(function (response) {
         console.log(response);
-            $("#load_assign_gif").css("display","none");
-
+        $("#assign-error").css("display","block");
+        $("#assign-error").append('<div  class="lert alert-success" role="alert" >Pomyslnie przypisano  </div>');
     });
 
 }
