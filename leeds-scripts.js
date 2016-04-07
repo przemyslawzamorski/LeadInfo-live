@@ -6,7 +6,7 @@ var url_base;
 function check_authorization() {
     /*za kazdym razem przy przeladowaniu  pinguje strone i sprawdza w sesji czy jestem zalogowany*/
     $.ajax({
-        url: "http://system.fastdata.com.pl:4567/framework/standalone/leadinfo",
+        url: "/framework/standalone/leadinfo",
         type: "GET",
         data: {},
         dataType: "text xml",
@@ -55,7 +55,7 @@ function init_load() {
     /*pobieranie szablonow email*/
     $.ajax({
         type: 'GET',
-        url: "http://system.fastdata.com.pl:4567/framework/rin/EML_DEF?rodzaj=L",
+        url: "/framework/rin/EML_DEF?rodzaj=L",
         processData: true,
         data: {},
         crossDomain: true,
@@ -73,7 +73,7 @@ function init_load() {
     /* pobieranie usera oraz stopki*/
     $.ajax({
         type: 'GET',
-        url: "http://system.fastdata.com.pl:4567/framework/rin/usr_ja",
+        url: "/framework/rin/usr_ja",
         processData: true,
         data: {},
         crossDomain: true,
@@ -93,7 +93,7 @@ function init_load() {
 function get_leads() {
     $.ajax({
         type: 'GET',
-        url: "http://system.fastdata.com.pl:4567/framework/rin/mob_leady?",
+        url: "/framework/rin/mob_leady?",
         processData: true,
         data: {},
         crossDomain: true,
@@ -295,7 +295,7 @@ function get_lead_info(this_id) {
         $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
         object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
     }
-    var contact_info_link = "http://system.fastdata.com.pl:4567/framework/rin/lead_con/" + object.LEADID;
+    var contact_info_link = "/framework/rin/lead_con/" + object.LEADID;
 
     /*dodawanie danych kontaktowych*/
     $.getJSON(contact_info_link, function (data) {
@@ -360,7 +360,7 @@ function contact_accomplish() {
     $.ajax({
         async: true,
         crossDomain: true,
-        url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_KONTAKT_WYKONANY",
+        url: "/framework/ope/LEAD_INBOX_MENU_KONTAKT_WYKONANY",
         method: "POST",
         data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n"
     }).done(function (response) {
@@ -417,7 +417,7 @@ function send_email() {
     var settings = {
         "async": true,
         "crossDomain": true,
-        "url": "http://system.fastdata.com.pl:4567/framework/ope/MOB_LEAD_MENU_WYSLIJ_EMAIL",
+        "url": "/framework/ope/MOB_LEAD_MENU_WYSLIJ_EMAIL",
         "method": "POST",
         "data": "{\"recpient\":" + '"' + emai_content[0].value + '"' + ",\"subject\":" + '"' + emai_content[1].value + '"' + ",\"tresc\":" + email_text + "}"
     };
@@ -443,7 +443,7 @@ function assign() {
         /*dodaj folder*/
         async: true,
         crossDomain: true,
-        url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_DODAJ_FOLDER",
+        url: "/framework/ope/LEAD_INBOX_MENU_DODAJ_FOLDER",
         method: "POST",
         data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         success: function (data) {
@@ -451,7 +451,7 @@ function assign() {
                 /*uaktualnij status*/
                 async: true,
                 crossDomain: true,
-                url: "http://system.fastdata.com.pl:4567/framework/ope/LEAD_INBOX_MENU_UAKT_SATUS",
+                url: "/framework/ope/LEAD_INBOX_MENU_UAKT_SATUS",
                 method: "POST",
                 data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
                 success: function (data) {
