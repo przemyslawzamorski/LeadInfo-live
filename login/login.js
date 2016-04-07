@@ -10,6 +10,7 @@ function log_in() {
         var url = "http://" + window.login + ":" + window.login_data[1].value + "@system.fastdata.com.pl:4567/framework/rin/leady?";
         $.ajax(url,
             {
+                beforeSend: load_start(),
                 statusCode: {
                     401: function () {
                         console.log("nie autoryzowano");
@@ -30,9 +31,9 @@ function log_in() {
     });
 }
 
-function test(){
+function load_start(){
+        $("#login_form").append(' <div id="contact_info_load" class="col-centered" style="text-align: center; padding-top: 15px;"><img src="leadinfo/login/ajax-loader.gif" ></div>');
 
-    console.log("enter !!!");
 }
 
 
