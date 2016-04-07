@@ -174,58 +174,28 @@ function render_leeds(data, destination) {
             /*dodawanie id leada oraz nazwy od kogo  */
             $("#" + preid + i).append("<td >" + data[i].LEADID + "</br><p style=' word-break: break-all;'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
 
-            /*dodawanie kolejnego kroku*/
+            /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
-                 $("#" + preid + i).append("<td >Zamknięcie</td>");
+                $("#" + preid + i).append("<td >Zamknięcie</td>");
+                $("#" + preid + i).append("<td >" + time_difference(data[i].TARGETCLOSEDATE) + "</td>");
+
 
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
-               $("#" + preid + i).append("<td >Kontakt</td>");
+                $("#" + preid + i).append("<td >Kontakt</td>");
+                $("#" + preid + i).append("<td >" + time_difference(data[i].TARGETCONTACTDATE) + "</td>");
+
             }
             else if (!data[i].OPENDATE) {
-              $("#" + preid + i).append("<td >Otwarcie</td>");
-            }
+                $("#" + preid + i).append("<td >Otwarcie</td>");
+                $("#" + preid + i).append("<td >" + time_difference(data[i].TARGETOPENDATE) + "</td>");
 
-            /*wyswietlanie czasu*/
-            if (data[i].CONTACTDATE && data[i].OPENDATE) {
-                /*wyswietla czas do zakonczenia */
-                time_remain(data[i].TARGETCLOSEDATE, preid, i, "Zamkniecia");
-
-            } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
-                /*wyswietla czas do kontaktu */
-                time_remain(data[i].TARGETCONTACTDATE, preid, i, "Kontaktu");
-            }
-            else if (!data[i].OPENDATE) {
-                /*wyswietla czas do otwarca */
-                time_remain(data[i].TARGETOPENDATE, preid, i, "Otwarcia");
-            }
-
-            /*status otwarcia*/
-            if (data[i].OPENDATE) {
-                if (data[i].OPENDATE <= data[i].TARGETOPENDATE) {
-                    $("#" + preid + i).append("<td class='status-cell'  ><i class='fa fa-check'></i></td>");
-                } else {
-                    $("#" + preid + i).append("<td class='status-cell'  ><i class='fa fa-check'></i></td>");
-                }
-            } else {
-                $("#" + preid + i).append("<td class='status-cell' ><i class='fa fa-times'></i></td>");
-            }
-            /*status kontaktu*/
-            if (data[i].CONTACTDATE) {
-                if (data[i].CONTACTDATE <= data[i].TARGETCONTACTDATE) {
-                    $("#" + preid + i).append("<td class='status-cell'  ><i class='fa fa-check'></i></td>");
-                } else {
-                    $("#" + preid + i).append("<td class='status-cell'  ><i class='fa fa-check'></i></td>");
-                }
-            } else {
-                $("#" + preid + i).append("<td class='status-cell' ><i class='fa fa-times '></i></td>");
             }
         }
     }
 }
 
 /*funkcja obliczajaca roznice czasowo*/
-function time_remain(time_given, preid, i, status) {
-
+function time_difference(time_given) {
 
     var leed_date = time_given;
     leed_date = leed_date.split(/(?:-| |:)+/);
@@ -237,18 +207,13 @@ function time_remain(time_given, preid, i, status) {
     var diffHrs = Math.round((diffMs % 86400000) / 3600000);
     var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
     if (diffDays != 0) {
-        var time_status = status + " : " + diffDays + " dni";
+        var time_status = diffDays + " dni";
     } else if (diffDays == 0 && diffHrs != 0) {
-        var time_status = status + " : " + diffHrs + " godzin";
+        var time_status = diffHrs + " godzin";
     } else {
-        var time_status = status + " : " + diffMins + " minut";
+        var time_status = diffMins + " minut";
     }
-    if (diffDays >= 0 && diffHrs >= 0 && diffMins >= 0) {
-        $("#" + preid + i).append("<td style='width: 50% !important;'>" + time_status + "</td>");
-
-    } else {
-        $("#" + preid + i).append("<td style='width: 50% !important;'><p class='warning' >" + time_status + "</p></td>");
-    }
+    return time_status;
 }
 
 
