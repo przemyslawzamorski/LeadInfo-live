@@ -161,33 +161,33 @@ function render_leeds(data, destination) {
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
-                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #FC5151;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #FC5151; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "open-no-attribution":
-                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #FFFF99;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #FFFF99; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "my-leeds":
-                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #4CAF50;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #4CAF50; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
             }
 
             /*dodawanie id leada oraz nazwy od kogo  */
-            $("#" + preid + i).append("<td >" + data[i].LEADID + "</br><p style=' word-break: break-all;'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
+            $("#" + preid + i).append("<td style='width: calc(40vw - 32px ) !important;' >" + data[i].LEADID + "</br><p style=' word-break: break-all;'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
-                $("#" + preid + i).append("<td style='width: 25px !important;' >Zamknięcie</td>");
-                $("#" + preid + i).append("<td style='width: 25px !important;'>" + time_difference(data[i].TARGETCLOSEDATE) + "</td>");
+                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;' >Zamknięcie</td>");
+                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time_difference(data[i].TARGETCLOSEDATE) + "</td>");
 
 
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
-                $("#" + preid + i).append("<td style='width: 25px !important;'>Kontakt</td>");
-                $("#" + preid + i).append("<td style='width: 25px !important;'>" + time_difference(data[i].TARGETCONTACTDATE) + "</td>");
+                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>Kontakt</td>");
+                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time_difference(data[i].TARGETCONTACTDATE) + "</td>");
 
             }
             else if (!data[i].OPENDATE) {
-                $("#" + preid + i).append("<td style='width: 25px !important;'>Otwarcie</td>");
-                $("#" + preid + i).append("<td style='width: 25px !important;'>" + time_difference(data[i].TARGETOPENDATE) + "</td>");
+                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>Otwarcie</td>");
+                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time_difference(data[i].TARGETOPENDATE) + "</td>");
 
             }
         }
