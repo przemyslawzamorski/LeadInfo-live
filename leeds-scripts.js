@@ -176,18 +176,18 @@ function render_leeds(data, destination) {
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
-                $("#" + preid + i).append("<td >Zamknięcie</td>");
-                $("#" + preid + i).append("<td >" + time_difference(data[i].TARGETCLOSEDATE) + "</td>");
+                $("#" + preid + i).append("<td style='width: 25px !important;' >Zamknięcie</td>");
+                $("#" + preid + i).append("<td style='width: 25px !important;'>" + time_difference(data[i].TARGETCLOSEDATE) + "</td>");
 
 
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
-                $("#" + preid + i).append("<td >Kontakt</td>");
-                $("#" + preid + i).append("<td >" + time_difference(data[i].TARGETCONTACTDATE) + "</td>");
+                $("#" + preid + i).append("<td style='width: 25px !important;'>Kontakt</td>");
+                $("#" + preid + i).append("<td style='width: 25px !important;'>" + time_difference(data[i].TARGETCONTACTDATE) + "</td>");
 
             }
             else if (!data[i].OPENDATE) {
-                $("#" + preid + i).append("<td >Otwarcie</td>");
-                $("#" + preid + i).append("<td >" + time_difference(data[i].TARGETOPENDATE) + "</td>");
+                $("#" + preid + i).append("<td style='width: 25px !important;'>Otwarcie</td>");
+                $("#" + preid + i).append("<td style='width: 25px !important;'>" + time_difference(data[i].TARGETOPENDATE) + "</td>");
 
             }
         }
