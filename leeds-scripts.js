@@ -449,7 +449,7 @@ function assign() {
     console.log("assign", window.object.LEADID);
 
     /*otwieram leeda*/
-
+    $("#load_assign_gif").css("display","block");
     $.ajax({
         /*dodaj folder*/
         async: true,
@@ -479,6 +479,7 @@ function assign() {
         }
     }).done(function (response) {
         console.log(response);
+            $("#load_assign_gif").css("display","none");
 
     });
 

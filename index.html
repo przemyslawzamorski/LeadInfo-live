@@ -5,10 +5,11 @@
 
 <style>
 
-    body{
-        padding: 0px 0px 0px 0px  !important;
+    body {
+        padding: 0px 0px 0px 0px !important;
 
     }
+
     .status-cell {
         width: 32px !important;
         padding-left: 9px !important;
@@ -33,7 +34,7 @@
     }
 
     tr:nth-child(even) {
-        background-color: #f2f2f2 ;
+        background-color: #f2f2f2;
     }
 
     th {
@@ -121,14 +122,15 @@
         background-color: #CCFF99 !important;
     }
 
-    .active-line{
-          background-color: #CCFF99 !important;
+    .active-line {
+        background-color: #CCFF99 !important;
     }
 
     .modal {
         overflow: scroll !important;
     }
-    #email{
+
+    #email {
         margin-right: 4px !important;
     }
 
@@ -165,25 +167,22 @@
 <!--login menu-->
 
 
-
-<div id="leeds-content" style=" background-color: #ffffff !important; min-height: 100vh !important; " >
+<div id="leeds-content" style=" background-color: #ffffff !important; min-height: 100vh !important; ">
     <!--leads header-->
     <div class="row" style="margin: 0px 0px 0px 0px ;">
         <div class="col-md-6 col-lg-6 col-sm-6 col-xs-7">
             <h3 style="padding-left: 10px;"><i class="fa fa-cogs"> </i> <strong>Lead</strong>info </h3>
         </div>
 
-<div class="col-md-6 col-lg-6 col-sm-6 col-xs-5 pull-right btn-group" style="padding: 10px 2px 0px 0px;">
-        <div class="btn-group" style="float: right;">
-            <button type="button" class="btn " onclick="refresh_leads()"><i class="fa fa-refresh"></i></button>
-            <button type="button" class="btn " onclick="log_out()"><i class="fa fa-sign-out"></i> Wyloguj </button>
-        </div>
-
+        <div class="col-md-6 col-lg-6 col-sm-6 col-xs-5 pull-right btn-group" style="padding: 10px 2px 0px 0px;">
+            <div class="btn-group" style="float: right;">
+                <button type="button" class="btn " onclick="refresh_leads()"><i class="fa fa-refresh"></i></button>
+                <button type="button" class="btn " onclick="log_out()"><i class="fa fa-sign-out"></i> Wyloguj</button>
+            </div>
 
 
         </div>
     </div>
-
 
 
     <!-- leeds table -->
@@ -191,11 +190,10 @@
         <tr>
             <th style='width: 32px !important; '></th>
             <th style='width: calc(40vw - 32px ) !important;'>Numer lead</th>
-            <th style='width: calc(30vw - 32px ) !important;' >Kolejny krok</th>
+            <th style='width: calc(30vw - 32px ) !important;'>Kolejny krok</th>
             <th style='width: calc(30vw - 32px ) !important;'>Pozostało</th>
         </tr>
     </table>
-
 
 
     <table id="new-leads">
@@ -221,14 +219,21 @@
                 <table class="modal-body" id="modal-content">
                 </table>
                 <div class="modal-footer">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <div id="assign-error" class="alert alert-danger" role="alert" style="display:none;">
+                            Niestety zgloszenie zostalo juz przypisane przez kogos innego.
+                        </div>
 
-                    <div id="assign-error" class="alert alert-danger" role="alert" style="display:none;">
-                        Niestety zgloszenie zostalo juz przypisane przez kogos innego.
                     </div>
-                    <div class="btn-group" id="modal-footer">
+                    <div id="load_assign_gif" class="col-xs-2 col-sm-8 col-md-10  col-lg-11 " style="display:none;">
+                        <img src="leadinfo/ajax-loader.gif">
+                    </div>
+                    <div class="col-xs-10 col-sm-4 col-md-2  col-lg-1">
+                        <div class="btn-group" id="modal-footer">
 
-                        <button id="closuser" type="button" class="btn btn-default" data-dismiss="modal">Zamknij
-                        </button>
+                            <button id="closuser" type="button" class="btn btn-default" data-dismiss="modal">Zamknij
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
