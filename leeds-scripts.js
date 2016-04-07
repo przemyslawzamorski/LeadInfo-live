@@ -219,8 +219,10 @@ function time_difference(time_given) {
 
 /*informacje szczegolowe leeda*/
 function get_lead_info(this_id) {
-    console.log(this_id);
+    $("#"+window.old_click).removeClass("active-line");
     window.click_id = this_id;
+    window.old_click= window.click_id;
+    $("#"+window.click_id).addClass("active-line");
 
     var single_lead = $.grep(window.new_leads, function (e) {
         return e.LEADID == this_id;
