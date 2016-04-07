@@ -177,17 +177,29 @@ function render_leeds(data, destination) {
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
                 $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;' >Zamknięcie</td>");
-                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time_difference(data[i].TARGETCLOSEDATE) + "</td>");
-
-
+                var time = time_difference(data[i].TARGETCLOSEDATE);
+                if (time >= 0) {
+                    $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+                } else {
+                    $("#" + preid + i).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+                }
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
                 $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>Kontakt</td>");
-                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time_difference(data[i].TARGETCONTACTDATE) + "</td>");
-
+                var time = time_difference(data[i].TARGETCONTACTDATE);
+                if (time >= 0) {
+                    $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+                } else {
+                    $("#" + preid + i).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+                }
             }
             else if (!data[i].OPENDATE) {
                 $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>Otwarcie</td>");
-                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time_difference(data[i].TARGETOPENDATE) + "</td>");
+                var time = time_difference(data[i].TARGETOPENDATE);
+                if (time >= 0) {
+                    $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+                } else {
+                    $("#" + preid + i).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+                }
 
             }
         }
