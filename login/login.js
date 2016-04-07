@@ -7,7 +7,7 @@ function log_in() {
     }
     $(function () {
 
-        var url = "http://" + window.login + ":" + window.login_data[1].value + "@system.fastdata.com.pl:4567/framework/rin/leady?";
+        var url = "https://" + window.login + ":" + window.login_data[1].value + "@system.fastdata.com.pl:4567/framework/rin/leady?";
         $.ajax(url,
             {
                 beforeSend: load_start(),

@@ -299,6 +299,7 @@ function get_lead_info(this_id) {
     /* //Dane kontaktowe //*/
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
     /*gif doładowywania danych kontaktowych */
+    $("#contact_info_load").remove();
     $("#modal-content").append(' <div id="contact_info_load" class="col-centered" style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
 
     if (object.FIRSTNAME && object.LASTNAME) {
@@ -311,7 +312,7 @@ function get_lead_info(this_id) {
     $.getJSON(contact_info_link, function (data) {
 
         /*usuniecie gifu doladowania*/
-        $("#contact_info_load").remove();
+        $("#contact_info_load").css("display","None");
         console.log(data);
 
         /* dodawanie numeru telefonu kom */
