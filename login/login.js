@@ -30,5 +30,9 @@ function log_in() {
     });
 }
 
+function test(){
+
+    console.log("enter !!!");
+}
 
 
