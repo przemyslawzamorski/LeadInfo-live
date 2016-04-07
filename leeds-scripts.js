@@ -171,7 +171,7 @@ function render_leeds(data, destination) {
                 if (time >= 0) {
                     $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
                 } else {
-                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;padding-right: 0px !important;'>" + time + " przekroczono</td>");
                 }
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
                 $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>Kontakt</td>");
