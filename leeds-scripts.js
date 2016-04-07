@@ -122,18 +122,6 @@ function get_leads() {
 
 /*funkcja wyswietlajaca leedy z podzialem */
 function render_leeds(data, destination) {
-    /*okreslanie lokalizacji gdzie dodać leeda*/
-    switch (destination) {
-        case "new-leads":
-            var preid = "nl";
-            break;
-        case "open-no-attribution":
-            var preid = "ona";
-            break;
-        case "my-leeds":
-            var preid = "ml";
-            break;
-    }
 
     /*czyszczenie i dodawania zawarotsci leedow*/
     $("#" + destination).empty();
@@ -153,52 +141,52 @@ function render_leeds(data, destination) {
     else {
         for (var i = 0; i < data.length; i++) {
             /*tworzenie wiersza z opcją klikania na niego i wyswietlania info szczeolowych */
-            $('<tr>', {id: preid + i}).appendTo('#' + destination);
-            $("#" + preid + i).attr("onclick", "get_lead_info(this.id)");
-            $("#" + preid + i).attr("data-toggle", "modal");
-            $("#" + preid + i).attr("data-target", "#leedsTable");
+            $('<tr>', {id: data[i].LEADID}).appendTo('#' + destination);
+            $("#" + data[i].LEADID).attr("onclick", "get_lead_info(this.id)");
+            $("#" + data[i].LEADID).attr("data-toggle", "modal");
+            $("#" + data[i].LEADID).attr("data-target", "#leedsTable");
 
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
-                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #FC5151; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell' style='background-color: #FC5151; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "open-no-attribution":
-                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #FFFF99; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell' style='background-color: #FFFF99; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "my-leeds":
-                    $("#" + preid + i).append("<td class='status-cell' style='background-color: #4CAF50; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell' style='background-color: #4CAF50; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
             }
 
             /*dodawanie id leada oraz nazwy od kogo  */
-            $("#" + preid + i).append("<td style='width: calc(40vw - 32px ) !important;' >" + data[i].LEADID + "</br><p style=' word-break: break-all;'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
+            $("#" + data[i].LEADID).append("<td style='width: calc(40vw - 32px ) !important;' >" + data[i].LEADID + "</br><p style=' word-break: break-all;'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
-                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;' >Zamknięcie</td>");
+                $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;' >Zamknięcie</td>");
                 var time = time_difference(data[i].TARGETCLOSEDATE);
                 if (time >= 0) {
-                    $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+                    $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
                 } else {
-                    $("#" + preid + i).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
                 }
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
-                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>Kontakt</td>");
+                $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>Kontakt</td>");
                 var time = time_difference(data[i].TARGETCONTACTDATE);
                 if (time >= 0) {
-                    $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+                    $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
                 } else {
-                    $("#" + preid + i).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
                 }
             }
             else if (!data[i].OPENDATE) {
-                $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>Otwarcie</td>");
+                $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>Otwarcie</td>");
                 var time = time_difference(data[i].TARGETOPENDATE);
                 if (time >= 0) {
-                    $("#" + preid + i).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+                    $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
                 } else {
-                    $("#" + preid + i).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
                 }
 
             }
@@ -234,18 +222,22 @@ function get_lead_info(this_id) {
     console.log(this_id);
     window.click_id = this_id;
 
+    var single_lead = $.grep(window.new_leads, function (e) {
+        return e.LEADID == this_id;
+    });
+    if (single_lead.length != 0) window.object = single_lead[0];
 
-    if (click_id.indexOf("nl") >= 0) {
-        var lead_id = this_id.replace("nl", "");
-        window.object = window.new_leads[lead_id];
-    } else if (click_id.indexOf("ona") >= 0) {
-        var lead_id = this_id.replace("ona", "");
-        window.object = window.open_with[lead_id];
-    } else {
-        var lead_id = this_id.replace("ml", "");
-        window.object = window.my_leeds[lead_id];
-        console.log(lead_id);
-    }
+    single_lead = $.grep(window.open_with, function (e) {
+        return e.LEADID == this_id;
+    });
+    if (single_lead.length != 0) window.object = single_lead[0];
+
+
+    single_lead = $.grep(window.my_leeds, function (e) {
+        return e.LEADID == this_id;
+    });
+    if (single_lead.length != 0) window.object = single_lead[0];
+
 
     console.log('a', object);
     var status = '';
@@ -486,7 +478,7 @@ function assign() {
 }
 
 
-function refresh_leads(){
+function refresh_leads() {
     get_leads();
 }
 
