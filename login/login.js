@@ -17,6 +17,7 @@ function log_in() {
                         $("#login_error").css("display", "block");
                         $("#password").val('');
                         $("#username").val('');
+                        $("#contact_info_load").remove();
 
 
                     },
@@ -33,7 +34,6 @@ function log_in() {
 
 function load_start(){
         $("#login_form").append(' <div id="contact_info_load" class="col-centered" style="text-align: center; padding-top: 15px;"><img src="leadinfo/login/ajax-loader.gif" ></div>');
-
 }
 
 

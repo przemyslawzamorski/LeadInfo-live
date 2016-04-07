@@ -33,7 +33,7 @@ function check_authorization() {
 
 /*logout*/
 function log_out() {
-    $.ajax("http://a:a@system.fastdata.com.pl:4567/framework/rin/leady?",
+    $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/rin/leady?",
         {
             /*wylogowuwyje i czyszczcze dane*/
             statusCode: {
@@ -483,7 +483,7 @@ function assign() {
     }).done(function (response) {
         console.log(response);
         $("#assign-error").css("display","block");
-        $("#assign-error").append('<div  class="lert alert-success" role="alert" >Pomyslnie przypisano  </div>');
+        $("#assign-error").append('<div  class="alert alert-success" role="alert" >Pomyslnie przypisano  </div>');
     });
 
 }
