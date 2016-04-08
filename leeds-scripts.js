@@ -4,7 +4,6 @@ window.old_click = 0;
 window.click_id = 0;
 /*sprawdzanie autoryzacji*/
 
-
 function check_authorization() {
     /*za kazdym razem przy przeladowaniu  pinguje strone i sprawdza w sesji czy jestem zalogowany*/
     $.ajax({
@@ -30,7 +29,6 @@ function check_authorization() {
     });
 }
 
-
 /*logout*/
 function log_out() {
     $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/rin/leady",
@@ -49,13 +47,7 @@ function log_out() {
         });
 }
 
-
 /*--------------------*/
-
-
-
-
-
 
 /*podzial leadow po statusie i wywołanie renderowania*/
 function leads_divison_and_init_render(leads) {
@@ -82,7 +74,6 @@ function leads_divison_and_init_render(leads) {
         render_leeds_in_place(window.my_leeds, "my-leeds");
     });
 }
-
 
 /*renderuje leady w okreslonym miejscu*/
 function render_leeds_in_place(data, destination) {
@@ -159,9 +150,6 @@ function render_leeds_in_place(data, destination) {
         }
     }
 }
-
-
-
 
 /*informacje szczegolowe leeda*/
 function get_lead_info(this_id) {
@@ -310,17 +298,6 @@ function get_lead_info(this_id) {
 }
 
 
-
-
-/* To refactor ---------------------*/
-
-/* wyswietlanie zawartości template email  */
-function get_email_content() {
-    append_email_content();
-    $("#cus-email").val(window.contact_email);
-    $("#subject").val(object.KAMPANIA + ' (' + object.LEADID + ')');
-}
-
 /*na wybor szablonu dodawanie szablonu do pola tekstowego wraz z  dodaniem stopki*/
 function append_email_content() {
     var button_content = $("#email-content-select option:selected").text();
@@ -334,17 +311,28 @@ function append_email_content() {
         email_template = '\n\n' + window.footer;
     }
     $("#comment").val(email_template);
-
 }
-/* To refactor ---------------------*/
 
+/* wyswietlanie zawartości template email  */
+function get_email_content() {
+    append_email_content();
+    $("#cus-email").val(window.contact_email);
+    $("#subject").val(object.KAMPANIA + ' (' + object.LEADID + ')');
+}
 
+/*wywoluje modal dzwonienia */
 function mod() {
     $('#callTemplate').modal('show')
 }
 
 
-/*--------------------*/
+
+/* To refactor ---------------------*/
+
+
+
+
+
 
 
 
@@ -493,9 +481,7 @@ function assign_lead() {
     );
 }
 
-
 /* ----funkcje fraeworka --*/
-
 
 /*funkcja framework - pobiera okreslony typ danych*/
 function get_date_type(type, succesfunction, errorfunction) {
@@ -512,7 +498,6 @@ function get_date_type(type, succesfunction, errorfunction) {
         error: function (data) {
             errorfunction(data);
         }
-        /*sprawdzic bez function*/
     });
 }
 
@@ -530,7 +515,6 @@ function execute_given_operation(operation, operation_data, succes_function, err
         error: function (data) {
             error_function(data);
         }
-        /*bez funkcja data*/
     });
 }
 
