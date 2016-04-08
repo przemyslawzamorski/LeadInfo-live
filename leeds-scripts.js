@@ -459,6 +459,7 @@ function reload_table_leads(succes_function) {
 
 
 function send_email() {
+     $("#load_assign_gif").css("display", "block");
     var emai_content = $("#email-form").serializeArray();
     var email_text = JSON.stringify(emai_content[2].value);
     console.log(email_text);
@@ -489,12 +490,19 @@ function contact_accomplish(lead_id) {
     execute_given_operation("LEAD_INBOX_MENU_KONTAKT_WYKONANY",
         "{\"LEADYLEADID\":" + lead_id + " }\n",
 
-        $.when(reload_table_leads(get_lead_info(window.click_id))).then(function (x) {
+        $.when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
+            $("#assign_error").empty();
             $("#load_assign_gif").css("display", "none");
+            $("#assign_error").css("display", "block");
+            $("#assign_error").append('<div class="alert alert-success"> Pomyślnie skontaktowano sie</div>')
         }),
 
 
         function () {
+            $("#assign_error").empty();
+            $("#load_assign_gif").css("display", "none");
+            $("#assign_error").css("display", "block");
+            $("#assign_error").append('<div class="alert alert-danger"> Nie mozna wykonac kontaktu.</div>')
             console.log('nie mozna wykonac kontaktu');
         });
 
@@ -511,7 +519,7 @@ function assign_lead() {
             "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
 
             $.when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
-                 $("#assign_error").empty();
+                $("#assign_error").empty();
                 $("#load_assign_gif").css("display", "none");
                 $("#assign_error").css("display", "block");
                 $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>')
@@ -521,7 +529,7 @@ function assign_lead() {
                 $("#assign_error").empty();
                 $("#load_assign_gif").css("display", "none");
                 $("#assign_error").css("display", "block");
-                $("#assign_error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu.</div>')
+                $("#assign_error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu.</div>');
                 console.log("niemozna wykonac operacji uaktualnienia ");
             })
 
@@ -529,7 +537,7 @@ function assign_lead() {
             $("#assign_error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign_error").css("display", "block");
-            $("#assign_error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>')
+            $("#assign_error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
             console.log("nie mozna dodać folderu");
         }
     );
