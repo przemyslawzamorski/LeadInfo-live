@@ -502,7 +502,7 @@ function contact_accomplish(lead_id) {
             $("#assign_error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign_error").css("display", "block");
-            $("#assign_error").append('<div class="alert alert-danger"> Nie mozna wykonac kontaktu.</div>')
+            $("#assign_error").append('<div class="alert alert-danger"> Nie mozna wykonac kontaktu.</div>');
             console.log('nie mozna wykonac kontaktu');
         });
 
@@ -522,7 +522,7 @@ function assign_lead() {
                 $("#assign_error").empty();
                 $("#load_assign_gif").css("display", "none");
                 $("#assign_error").css("display", "block");
-                $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>')
+                $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
             }),
 
             function () {
