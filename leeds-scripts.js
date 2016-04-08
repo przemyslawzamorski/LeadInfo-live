@@ -459,7 +459,7 @@ function reload_table_leads(succes_function) {
 
 
 function send_email() {
-     $("#load_assign_gif").css("display", "block");
+    $("#load_assign_gif").css("display", "block");
     var emai_content = $("#email-form").serializeArray();
     var email_text = JSON.stringify(emai_content[2].value);
     console.log(email_text);
@@ -494,7 +494,8 @@ function contact_accomplish(lead_id) {
             $("#assign_error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign_error").css("display", "block");
-            $("#assign_error").append('<div class="alert alert-success"> Pomyślnie skontaktowano sie</div>')
+            $("#assign_error").append('<div class="alert alert-success"> Pomyślnie skontaktowano sie</div>');
+            console.log('Pomyślnie skontaktowano sie');
         }),
 
 
