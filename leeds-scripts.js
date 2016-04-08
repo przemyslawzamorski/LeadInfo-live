@@ -33,7 +33,7 @@ function check_authorization() {
 
 /*logout*/
 function log_out() {
-    $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/rin/leady?",
+    $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/rin/leady",
         {
             /*wylogowuwyje i czyszczcze dane*/
             statusCode: {
@@ -98,10 +98,6 @@ function leads_divison_and_init_render(leads) {
         console.log("moje ", window.my_leeds);
         render_leeds_in_place(window.my_leeds, "my-leeds");
     });
-
-
-
-
 }
 
 
