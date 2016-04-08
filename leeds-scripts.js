@@ -18,7 +18,7 @@ function check_authorization() {
             if (xhr.status == 200) {
                 $("#login").css('display', "none");
                 $("#leeds-content").css("display", "block");
-                init_load();
+                load_and_render_page_data();
             }
             else {
                 $("#username,#password,#modal-title,#modal-content,#main-content ").empty();
@@ -50,80 +50,65 @@ function log_out() {
 }
 
 
-/*inicjalne pobranie danych*/
-function init_load() {
-    /*gif doładowywania glownych leadow */
-    $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
-    /*pobieranie szablonow email*/
+/*--------------------*/
+
+
+
+
+/*funkcja framework - pobiera okreslony typ danych*/
+function get_date_type(type, succesfunction, errorfunction) {
     $.ajax({
         type: 'GET',
-        url: "/framework/rin/EML_DEF?rodzaj=L",
+        url: "/framework/rin/" + type,
         processData: true,
         data: {},
         crossDomain: true,
         dataType: "json",
         success: function (data) {
-            $("#email-content-select").empty();
-            window.email_template = data.results;
-            for (var i = 0; i < data.results.length; i++) {
-                var select_id = "template-select-" + i;
-                var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
-                $("#email-content-select").append(selector);
-            }
+            succesfunction(data);
+        },
+        error: function (data) {
+            errorfunction(data);
         }
-    });
-    /* pobieranie usera oraz stopki*/
-    $.ajax({
-        type: 'GET',
-        url: "/framework/rin/usr_ja",
-        processData: true,
-        data: {},
-        crossDomain: true,
-        dataType: "json",
-        success: function (data) {
-            console.log('usr', data);
-            window.footer = data.results[0].STOPKA_MAIL;
-            window.user = data.results[0];
-            window.usr_short = window.user.SKROT;
-            console.log(window.usr_short);
-            get_leads();
-        }
+        /*sprawdzic bez function*/
     });
 }
 
-/*nowa uniwersalna funkcja pobierajaca leedy zaleznie od statusu*/
-function get_leads() {
-    $.ajax({
-        type: 'GET',
-        url: "/framework/rin/mob_leady?",
-        processData: true,
-        data: {},
-        crossDomain: true,
-        dataType: "json",
-        success: function (data) {
-            window.new_leads = $.grep(data.results, function (e) {
-                return e.STATUSCODE == "NEW"
-            });
-            console.log('new', window.new_leads);
-            render_leeds(window.new_leads, "new-leads");
+/*podzial leadow po statusie i wywołanie renderowania*/
+function leads_divison_and_init_render(leads) {
 
-            window.open_with = $.grep(data.results, function (e) {
-                return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA;
-            });
-            console.log('open with', window.open_with);
-            render_leeds(window.open_with, "open-no-attribution");
+    window.new_leads = $.grep(leads, function (e) {
+        return e.STATUSCODE == "NEW"
 
-            window.my_leeds = $.grep(data.results, function (e) {
-                return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN";
-            });
-            console.log('my', window.my_leeds);
-            render_leeds(window.my_leeds, "my-leeds");
-        }
     });
+    render_leeds_in_place($.grep(leads, function (e) {
+        return e.STATUSCODE == "NEW"
+
+    }), "new-leads");
+
+    window.open_with = $.grep(leads, function (e) {
+        return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA
+
+    });
+    render_leeds_in_place($.grep(leads, function (e) {
+        return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA
+
+    }), "open-no-attribution");
+
+    window.my_leeds = $.grep(leads, function (e) {
+        return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN"
+
+    });
+    render_leeds_in_place($.grep(leads, function (e) {
+        return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN"
+
+    }), "my-leeds");
 }
 
-/*funkcja wyswietlajaca leedy z podzialem */
-function render_leeds(data, destination) {
+
+
+/*renderuje leady w okreslonym miejscu*/
+function render_leeds_in_place(data, destination) {
 
     /*czyszczenie i dodawania zawarotsci leedow*/
     $("#" + destination).empty();
@@ -198,7 +183,7 @@ function render_leeds(data, destination) {
     }
 }
 
-/*funkcja obliczajaca roznice czasowo*/
+/*funkcja framework -  obliczajaca roznice czasowo*/
 function time_difference(time_given) {
 
     var leed_date = time_given;
@@ -227,6 +212,7 @@ function get_lead_info(this_id) {
     window.click_id = this_id;
     window.old_click = window.click_id;
     $("#" + window.click_id).addClass("active-line");
+    console.log(this_id);
 
     var single_lead = $.grep(window.new_leads, function (e) {
         return e.LEADID == this_id;
@@ -312,7 +298,7 @@ function get_lead_info(this_id) {
     $.getJSON(contact_info_link, function (data) {
 
         /*usuniecie gifu doladowania*/
-        $("#contact_info_load").css("display","None");
+        $("#contact_info_load").css("display", "None");
         console.log(data);
 
         /* dodawanie numeru telefonu kom */
@@ -361,34 +347,34 @@ function get_lead_info(this_id) {
         $('<button>', {id: 'assign'}).appendTo("#modal-footer");
         $("#assign").attr("class", "btn btn-default");
         $("#assign").text("Przypisz sobie");
-        $("#assign").attr("onclick", "assign()");
+        $("#assign").attr("onclick", "assign_lead()");
         $("#assign-error").css("display", "none");
     }
 }
 
-/*wykonanie kontaktu*/
-function contact_accomplish() {
+/*funkcja framework - wykonuje operacje z podanymi danymi typu data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n" */
+function execute_given_operation(operation, operation_data, succes_function, error_function) {
     $.ajax({
         async: true,
         crossDomain: true,
-        url: "/framework/ope/LEAD_INBOX_MENU_KONTAKT_WYKONANY",
+        url: "/framework/ope/" + operation,
         method: "POST",
-        data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n"
-    }).done(function (response) {
-        console.log(response);
-        if (response.indexOf("Opportunity does not exist for UserName ") >= 0) {
-            console.log("blad");
-        } else {
-            console.log("pomyslnie sie skontaktowalismy");
-            get_lead_info(window.click_id);
-            init_load();
-
+        data: operation_data,
+        success: function (data) {
+            succes_function;
+        },
+        error: function (data) {
+            error_function(data);
         }
+        /*bez funkcja data*/
     });
 }
 
+
+/* To refactor ---------------------*/
+
 /* wyswietlanie zawartości template email  */
-function get_email_content(data) {
+function get_email_content() {
     append_email_content();
     $("#cus-email").val(window.contact_email);
     $("#subject").val(object.KAMPANIA + ' (' + object.LEADID + ')');
@@ -409,8 +395,75 @@ function append_email_content() {
     $("#comment").val(email_template);
 
 }
+/* To refactor ---------------------*/
 
-/*wysylanie email*/
+
+function mod() {
+    $('#callTemplate').modal('show')
+}
+
+
+/*--------------------*/
+
+
+
+
+
+
+/*funkcja wczytujaca wszystkie dane na strone:  usr , template email */
+function load_and_render_page_data() {
+    $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
+
+    /*pobieram dane templetek email*/
+    get_date_type("EML_DEF?rodzaj=L", function (data) {
+            $("#email-content-select").empty();
+            window.email_template = data.results;
+            for (var i = 0; i < data.results.length; i++) {
+                var select_id = "template-select-" + i;
+                var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
+                $("#email-content-select").append(selector);
+
+            }
+
+        }
+        , function () {
+            console.log("nie mozna zaladowac email templates");
+        });
+
+    /*pobieram dane usera*/
+    get_date_type("usr_ja", function (data) {
+        console.log('usr', data);
+        window.footer = data.results[0].STOPKA_MAIL;
+        window.user = data.results[0];
+        window.usr_short = window.user.SKROT;
+        console.log(window.usr_short);
+    }, function () {
+        console.log("nie mozna zaladowac daych usera");
+    });
+
+    /*pobieram dane leady i wyswietla na ekranie */
+    get_date_type("mob_leady", function (data) {
+        leads_divison_and_init_render(data.results);
+
+    }, function () {
+        console.log("nie mozna zaladowac leadow");
+    });
+
+
+}
+
+/*funkcja przeladowywujaca sama tabele leadow*/
+function reload_table_leads(succes_function) {
+    /*pobieram dane leady i wyswietla na ekranie*/
+    get_date_type("mob_leady", function (data) {
+        leads_divison_and_init_render(data.results);
+
+    }, function () {
+        console.log("nie mozna zaladowac leadow");
+    });
+}
+
+
 function send_email() {
     var emai_content = $("#email-form").serializeArray();
     var email_text = JSON.stringify(emai_content[2].value);
@@ -425,75 +478,57 @@ function send_email() {
         .replace(/\\f/g, "\\f");
     console.log(email_text);
 
-    var settings = {
-        "async": true,
-        "crossDomain": true,
-        "url": "/framework/ope/MOB_LEAD_MENU_WYSLIJ_EMAIL",
-        "method": "POST",
-        "data": "{\"recpient\":" + '"' + emai_content[0].value + '"' + ",\"subject\":" + '"' + emai_content[1].value + '"' + ",\"tresc\":" + email_text + "}"
-    };
-
-    $.ajax(settings).done(function (response) {
-        console.log(response);
-        contact_accomplish();
-    });
-}
-
-function mod() {
-    $('#callTemplate').modal('show')
-}
-
-
-/*funkcja przypisania*/
-function assign() {
-    console.log("assign", window.object.LEADID);
-
-    /*otwieram leeda*/
-    $("#load_assign_gif").css("display","block");
-    $.ajax({
-        /*dodaj folder*/
-        async: true,
-        crossDomain: true,
-        url: "/framework/ope/LEAD_INBOX_MENU_DODAJ_FOLDER",
-        method: "POST",
-        data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
-        success: function (data) {
-            $.ajax({
-                /*uaktualnij status*/
-                async: true,
-                crossDomain: true,
-                url: "/framework/ope/LEAD_INBOX_MENU_UAKT_SATUS",
-                method: "POST",
-                data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
-                success: function (data) {
-                    console.log("zrobił status");
-                    /*przeladowanie*/
-                    init_load();
-                    get_lead_info(window.click_id);
-                }
-
-            }).done(function (response) {
-                console.log(response);
-                $("#load_assign_gif").css("display","none");
-
-
-
-            });
+    execute_given_operation("MOB_LEAD_MENU_WYSLIJ_EMAIL",
+        "{\"recpient\":" + '"' + emai_content[0].value + '"' + ",\"subject\":" + '"' + emai_content[1].value + '"' + ",\"tresc\":" + email_text + "}",
+        contact_accomplish(window.object.LEADID)
+        , function () {
+            console.log("nie mozna wyslac");
         }
-    }).done(function (response) {
-        console.log(response);
-        $("#assign-error").css("display","block");
-        $("#assign-error").append('<div  class="alert alert-success" role="alert" >Pomyslnie przypisano  </div>');
-    });
-
-}
-
-
-function refresh_leads() {
-    get_leads();
+    );
 }
 
 
 
 
+/*nowy wykonany kontakt*/
+function contact_accomplish(lead_id) {
 
+
+    execute_given_operation("LEAD_INBOX_MENU_KONTAKT_WYKONANY",
+        "{\"LEADYLEADID\":" + lead_id + " }\n",
+
+        reload_table_leads(get_lead_info(window.click_id)),
+
+        function () {
+            console.log('nie mozna wykonac kontaktu');
+        });
+
+}
+
+
+
+
+
+
+
+function assign_lead() {
+    $("#load_assign_gif").css("display", "block");
+
+
+    execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER",
+        "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
+
+        execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS",
+            "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
+
+            reload_table_leads(get_lead_info(window.click_id)),
+
+            function () {
+                console.log("niemozna wykonac operacji uaktualnienia ");
+            })
+
+        , function () {
+            console.log("nie mozna dodać folderu");
+        }
+    );
+}
