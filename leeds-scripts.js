@@ -510,18 +510,18 @@ function assign_lead() {
         execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS",
             "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
 
-            $when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
+            $.when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
                  $("#assign_error").empty();
                 $("#load_assign_gif").css("display", "none");
                 $("#assign_error").css("display", "block");
-                $("assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>')
+                $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>')
             }),
 
             function () {
                 $("#assign_error").empty();
                 $("#load_assign_gif").css("display", "none");
                 $("#assign_error").css("display", "block");
-                $("assign_error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu.</div>')
+                $("#assign_error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu.</div>')
                 console.log("niemozna wykonac operacji uaktualnienia ");
             })
 
@@ -529,7 +529,7 @@ function assign_lead() {
             $("#assign_error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign_error").css("display", "block");
-            $("assign_error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>')
+            $("#assign_error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>')
             console.log("nie mozna dodać folderu");
         }
     );
