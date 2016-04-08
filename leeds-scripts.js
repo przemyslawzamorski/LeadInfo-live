@@ -77,32 +77,31 @@ function get_date_type(type, succesfunction, errorfunction) {
 /*podzial leadow po statusie i wywołanie renderowania*/
 function leads_divison_and_init_render(leads) {
 
-    window.new_leads = $.grep(leads, function (e) {
+    $.when(window.new_leads = $.grep(leads, function (e) {
         return e.STATUSCODE == "NEW"
-
+    })).then(function () {
+        console.log("Nowe ", window.new_leads);
+        render_leeds_in_place(window.new_leads, "new-leads");
     });
-    render_leeds_in_place($.grep(leads, function (e) {
-        return e.STATUSCODE == "NEW"
 
-    }), "new-leads");
-
-    window.open_with = $.grep(leads, function (e) {
+    $.when(window.open_with = $.grep(leads, function (e) {
         return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA
 
+    })).then(function (x) {
+        console.log("otwarte z ", window.open_with);
+        render_leeds_in_place(window.open_with, "open-no-attribution");
     });
-    render_leeds_in_place($.grep(leads, function (e) {
-        return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA
 
-    }), "open-no-attribution");
-
-    window.my_leeds = $.grep(leads, function (e) {
+    $.when(window.my_leeds = $.grep(leads, function (e) {
         return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN"
-
+    })).then(function (x) {
+        console.log("moje ", window.my_leeds);
+        render_leeds_in_place(window.my_leeds, "my-leeds");
     });
-    render_leeds_in_place($.grep(leads, function (e) {
-        return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN"
 
-    }), "my-leeds");
+
+
+
 }
 
 
