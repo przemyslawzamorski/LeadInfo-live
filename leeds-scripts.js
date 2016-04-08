@@ -55,24 +55,7 @@ function log_out() {
 
 
 
-/*funkcja framework - pobiera okreslony typ danych*/
-function get_date_type(type, succesfunction, errorfunction) {
-    $.ajax({
-        type: 'GET',
-        url: "/framework/rin/" + type,
-        processData: true,
-        data: {},
-        crossDomain: true,
-        dataType: "json",
-        success: function (data) {
-            succesfunction(data);
-        },
-        error: function (data) {
-            errorfunction(data);
-        }
-        /*sprawdzic bez function*/
-    });
-}
+
 
 /*podzial leadow po statusie i wywołanie renderowania*/
 function leads_divison_and_init_render(leads) {
@@ -177,27 +160,7 @@ function render_leeds_in_place(data, destination) {
     }
 }
 
-/*funkcja framework -  obliczajaca roznice czasowo*/
-function time_difference(time_given) {
 
-    var leed_date = time_given;
-    leed_date = leed_date.split(/(?:-| |:)+/);
-    var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
-        leed_date[3], leed_date[4], leed_date[5]);
-    var current_time = new Date().getTime();
-    var diffMs = (lead_time - current_time );
-    var diffDays = Math.round(diffMs / 86400000) - 31;
-    var diffHrs = Math.round((diffMs % 86400000) / 3600000);
-    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
-    if (diffDays != 0) {
-        var time_status = diffDays + " dni";
-    } else if (diffDays == 0 && diffHrs != 0) {
-        var time_status = diffHrs + " godzin";
-    } else {
-        var time_status = diffMins + " minut";
-    }
-    return time_status;
-}
 
 
 /*informacje szczegolowe leeda*/
@@ -346,23 +309,7 @@ function get_lead_info(this_id) {
     }
 }
 
-/*funkcja framework - wykonuje operacje z podanymi danymi typu data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n" */
-function execute_given_operation(operation, operation_data, succes_function, error_function) {
-    $.ajax({
-        async: true,
-        crossDomain: true,
-        url: "/framework/ope/" + operation,
-        method: "POST",
-        data: operation_data,
-        success: function (data) {
-            succes_function;
-        },
-        error: function (data) {
-            error_function(data);
-        }
-        /*bez funkcja data*/
-    });
-}
+
 
 
 /* To refactor ---------------------*/
@@ -517,6 +464,7 @@ function assign_lead() {
         "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
 
         execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS",
+
             "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
 
             $.when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
@@ -524,6 +472,7 @@ function assign_lead() {
                 $("#load_assign_gif").css("display", "none");
                 $("#assign_error").css("display", "block");
                 $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
+                console.log("przypisano ");
             }),
 
             function () {
@@ -542,4 +491,67 @@ function assign_lead() {
             console.log("nie mozna dodać folderu");
         }
     );
+}
+
+
+/* ----funkcje fraeworka --*/
+
+
+/*funkcja framework - pobiera okreslony typ danych*/
+function get_date_type(type, succesfunction, errorfunction) {
+    $.ajax({
+        type: 'GET',
+        url: "/framework/rin/" + type,
+        processData: true,
+        data: {},
+        crossDomain: true,
+        dataType: "json",
+        success: function (data) {
+            succesfunction(data);
+        },
+        error: function (data) {
+            errorfunction(data);
+        }
+        /*sprawdzic bez function*/
+    });
+}
+
+/*funkcja framework - wykonuje operacje z podanymi danymi typu data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n" */
+function execute_given_operation(operation, operation_data, succes_function, error_function) {
+    $.ajax({
+        async: true,
+        crossDomain: true,
+        url: "/framework/ope/" + operation,
+        method: "POST",
+        data: operation_data,
+        success: function (data) {
+            succes_function;
+        },
+        error: function (data) {
+            error_function(data);
+        }
+        /*bez funkcja data*/
+    });
+}
+
+/*funkcja framework -  obliczajaca roznice czasowo*/
+function time_difference(time_given) {
+
+    var leed_date = time_given;
+    leed_date = leed_date.split(/(?:-| |:)+/);
+    var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
+        leed_date[3], leed_date[4], leed_date[5]);
+    var current_time = new Date().getTime();
+    var diffMs = (lead_time - current_time );
+    var diffDays = Math.round(diffMs / 86400000) - 31;
+    var diffHrs = Math.round((diffMs % 86400000) / 3600000);
+    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+    if (diffDays != 0) {
+        var time_status = diffDays + " dni";
+    } else if (diffDays == 0 && diffHrs != 0) {
+        var time_status = diffHrs + " godzin";
+    } else {
+        var time_status = diffMins + " minut";
+    }
+    return time_status;
 }
