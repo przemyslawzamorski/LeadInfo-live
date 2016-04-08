@@ -325,20 +325,6 @@ function mod() {
     $('#callTemplate').modal('show')
 }
 
-
-
-/* To refactor ---------------------*/
-
-
-
-
-
-
-
-
-
-
-
 /*funkcja wczytujaca wszystkie dane na strone:  usr , template email */
 function load_and_render_page_data() {
     $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
@@ -353,7 +339,6 @@ function load_and_render_page_data() {
                 $("#email-content-select").append(selector);
 
             }
-
         }
         , function () {
             console.log("nie mozna zaladowac email templates");
@@ -377,8 +362,6 @@ function load_and_render_page_data() {
     }, function () {
         console.log("nie mozna zaladowac leadow");
     });
-
-
 }
 
 /*funkcja przeladowywujaca sama tabele leadow*/
@@ -391,7 +374,6 @@ function reload_table_leads(succes_function) {
         console.log("nie mozna zaladowac leadow");
     });
 }
-
 
 function send_email() {
     $("#load_assign_gif").css("display", "block");
