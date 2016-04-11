@@ -402,7 +402,7 @@ function send_email() {
         function (data) {
         }
     );
-    
+
 }
 
 
@@ -445,7 +445,8 @@ function assign_lead() {
 
     execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         function () {
-
+            console.log('dodano');
+            /*
             execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
                 function () {
                     $.when(reload_table_leads()).then(function () {
@@ -462,14 +463,14 @@ function assign_lead() {
                     $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
                     console.log("nie mozna uaktualnic statusu");
                 },function (){},function (){}
-            );
+            );*/
         },
         function () {
             $("#assign-error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign-error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
             console.log("nie mozna dodać folderu");
-        },function (){},function (){});
+        },function (){console.log('complete');},function (){console.log('done');});
 }
 
 /* ----funkcje fraeworka --*/
@@ -501,7 +502,7 @@ function execute_given_operation(operation, operation_data, succes_function, err
         method: "POST",
         dataType: 'json',
         data: operation_data,
-        succes: function (data) {
+        success: function (data) {
             succes_function(data);
         },
         error: function (data) {
