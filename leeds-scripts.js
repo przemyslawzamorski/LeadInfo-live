@@ -455,7 +455,7 @@ function assign_lead() {
                     $("#load_assign_gif").css("display", "none");
                     $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
                     console.log("nie mozna uaktualnic statusu");
-                }
+                },function (){},function (){}
             );
         },
         function () {
@@ -463,7 +463,7 @@ function assign_lead() {
             $("#load_assign_gif").css("display", "none");
             $("#assign-error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
             console.log("nie mozna dodać folderu");
-        });
+        },function (){},function (){});
 }
 
 /* ----funkcje fraeworka --*/
