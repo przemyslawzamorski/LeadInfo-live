@@ -446,7 +446,7 @@ function assign_lead() {
     execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         function () {
             console.log('dodano');
-            /*
+
             execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
                 function () {
                     $.when(reload_table_leads()).then(function () {
@@ -463,7 +463,7 @@ function assign_lead() {
                     $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
                     console.log("nie mozna uaktualnic statusu");
                 },function (){},function (){}
-            );*/
+            );
         },
         function () {
             $("#assign-error").empty();
