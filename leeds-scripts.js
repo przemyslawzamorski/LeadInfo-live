@@ -293,7 +293,7 @@ function get_lead_info(this_id) {
         $("#assign").attr("class", "btn btn-default");
         $("#assign").text("Przypisz sobie");
         $("#assign").attr("onclick", "assign_lead()");
-        $("#assign-error").css("display", "none");
+        /*("#assign_error").css("display", "none");*/
     }
 }
 
@@ -426,32 +426,60 @@ function contact_accomplish(lead_id) {
 
 }
 
+function clear_error(){
+    $("#assign-error").empty();
+}
 
 function assign_lead() {
     $("#load_assign_gif").css("display", "block");
 
-    execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER",
+
+    execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER","{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
+        function(){
+            console.log("jest git");
+        },
+        function(){
+            $("#assign-error").empty();
+            $("#load_assign_gif").css("display", "none");
+            $("#assign-error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
+            console.log("nie mozna dodać folderu");
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+   /* execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER",
         "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
 
-        execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS",
+                execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS",
 
-            "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
+                    "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
 
-            $.when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
-                $("#assign_error").empty();
-                $("#load_assign_gif").css("display", "none");
-                $("#assign_error").css("display", "block");
-                $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
-                console.log("przypisano ");
-            }),
 
-            function () {
-                $("#assign_error").empty();
-                $("#load_assign_gif").css("display", "none");
-                $("#assign_error").css("display", "block");
-                $("#assign_error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu.</div>');
-                console.log("niemozna wykonac operacji uaktualnienia ");
-            })
+
+                    $.when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
+                        $("#assign_error").empty();
+                        $("#load_assign_gif").css("display", "none");
+                        $("#assign_error").css("display", "block");
+                        $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
+                        console.log("przypisano ");
+                    }),
+
+                    function () {
+                        $("#assign_error").empty();
+                        $("#load_assign_gif").css("display", "none");
+                        $("#assign_error").css("display", "block");
+                        $("#assign_error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu.</div>');
+                        console.log("niemozna wykonac operacji uaktualnienia ");
+                    })
 
         , function () {
             $("#assign_error").empty();
@@ -460,7 +488,7 @@ function assign_lead() {
             $("#assign_error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
             console.log("nie mozna dodać folderu");
         }
-    );
+    );*/
 }
 
 /* ----funkcje fraeworka --*/
@@ -491,7 +519,7 @@ function execute_given_operation(operation, operation_data, succes_function, err
         url: "/framework/ope/" + operation,
         method: "POST",
         data: operation_data,
-        success: function (data) {
+        succes: function (data) {
             succes_function;
         },
         error: function (data) {
