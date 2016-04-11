@@ -379,7 +379,6 @@ function send_email() {
     $("#load_assign_gif").css("display", "block");
     var emai_content = $("#email-form").serializeArray();
     var email_text = JSON.stringify(emai_content[2].value);
-    console.log(email_text);
     email_text = email_text.replace(/\\n/g, "\\n")
         .replace(/\\'/g, "\\'")
         .replace(/\\"/g, '\\"')
@@ -390,13 +389,20 @@ function send_email() {
         .replace(/\\f/g, "\\f");
     console.log(email_text);
 
+
     execute_given_operation("MOB_LEAD_MENU_WYSLIJ_EMAIL",
         "{\"recpient\":" + '"' + emai_content[0].value + '"' + ",\"subject\":" + '"' + emai_content[1].value + '"' + ",\"tresc\":" + email_text + "}",
-        contact_accomplish(window.object.LEADID)
-        , function () {
-            console.log("nie mozna wyslac");
+        function (data) {
+        },
+        function (data) {
+        },
+        function (data) {
+            contact_accomplish(window.object.LEADID);
+        },
+        function (data) {
         }
     );
+    
 }
 
 
