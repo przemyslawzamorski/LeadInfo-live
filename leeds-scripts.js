@@ -404,50 +404,53 @@ function send_email() {
 function contact_accomplish(lead_id) {
 
     $("#load_assign_gif").css("display", "block");
-    execute_given_operation("LEAD_INBOX_MENU_KONTAKT_WYKONANY",
-        "{\"LEADYLEADID\":" + lead_id + " }\n",
 
-        $.when(reload_table_leads(get_lead_info(window.click_id))).then(function () {
-            $("#assign_error").empty();
-            $("#load_assign_gif").css("display", "none");
-            $("#assign_error").css("display", "block");
-            $("#assign_error").append('<div class="alert alert-success"> Pomyślnie skontaktowano sie</div>');
-            console.log('Pomyślnie skontaktowano sie');
-        }),
-
-
+    execute_given_operation("LEAD_INBOX_MENU_KONTAKT_WYKONANY", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         function () {
-            $("#assign_error").empty();
-            $("#load_assign_gif").css("display", "none");
-            $("#assign_error").css("display", "block");
-            $("#assign_error").append('<div class="alert alert-danger"> Nie mozna wykonac kontaktu.</div>');
-            console.log('nie mozna wykonac kontaktu');
-        });
-
+        },
+        function () {
+        },
+        function (data) {
+            if (JSON.stringify(data).indexOf('"step3of3":"FAILED"') >= 0) {
+                $("#assign-error").empty();
+                $("#load_assign_gif").css("display", "none");
+                $("#assign-error").append('<div class="alert alert-danger"> Nie mozna zaznaczyc kontaktu.</div>');
+            } else {
+                $.when(reload_table_leads()).then(function () {
+                    get_lead_info(window.click_id);
+                    $("#assign-error").empty();
+                    $("#load_assign_gif").css("display", "none");
+                    $("#assign-error").append('<div class="alert alert-success"> Pomyślnie zaznaczono skontatkowanie.</div>');
+                    console.log("przypisano ");
+                });
+            }
+        },
+        function () {
+        }
+    );
 }
 
-function clear_error(){
+function clear_error() {
     $("#assign-error").empty();
 }
 
 function assign_lead() {
     $("#load_assign_gif").css("display", "block");
-    
-    execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER","{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
-        function(){
 
-            execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS","{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
-                function(){
+    execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
+        function () {
+
+            execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
+                function () {
                     $.when(reload_table_leads()).then(function () {
                         get_lead_info(window.click_id);
-                        $("#assign_error").empty();
+                        $("#assign-error").empty();
                         $("#load_assign_gif").css("display", "none");
-                        $("#assign_error").css("display", "block");
-                        $("#assign_error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
+                        $("#assign-error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
                         console.log("przypisano ");
                     });
                 },
-                function(){
+                function () {
                     $("#assign-error").empty();
                     $("#load_assign_gif").css("display", "none");
                     $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
@@ -455,7 +458,7 @@ function assign_lead() {
                 }
             );
         },
-        function(){
+        function () {
             $("#assign-error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign-error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
@@ -484,19 +487,26 @@ function get_date_type(type, succesfunction, errorfunction) {
 }
 
 /*funkcja framework - wykonuje operacje z podanymi danymi typu data: "{\"LEADYLEADID\":" + window.object.LEADID + " }\n" */
-function execute_given_operation(operation, operation_data, succes_function, error_function) {
+function execute_given_operation(operation, operation_data, succes_function, error_function, complete_function, done_function) {
     $.ajax({
         async: true,
         crossDomain: true,
         url: "/framework/ope/" + operation,
         method: "POST",
+        dataType: 'json',
         data: operation_data,
         succes: function (data) {
-            succes_function;
+            succes_function(data);
         },
         error: function (data) {
             error_function(data);
+        },
+        complete: function (data) {
+            complete_function(data);
         }
+
+    }).done(function (data) {
+        done_function(data);
     });
 }
 
