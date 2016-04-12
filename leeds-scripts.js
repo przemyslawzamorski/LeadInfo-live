@@ -247,7 +247,6 @@ function get_lead_info(this_id) {
     ).then(function () {
             if (window.lead_contact_info.length != 0) {
                 window.lead_contact_info = lead_contact_info[0];
-                console.log('jak jest', window.lead_contact_info);
                 append_contact_info(window.lead_contact_info);
                 console.log("wczytuje dane z tablicy");
 
@@ -257,9 +256,7 @@ function get_lead_info(this_id) {
                     console.log("wczytuje dane z serwera");
                     window.lead_contact_info = data;
                     window.lead_contact.push(data);
-                    console.log('jak nie ma', window.lead_contact_info);
                     append_contact_info(window.lead_contact_info);
-
                 });
             }
         });
@@ -271,7 +268,6 @@ function get_lead_info(this_id) {
         $("#assign").attr("class", "btn btn-default");
         $("#assign").text("Przypisz sobie");
         $("#assign").attr("onclick", "assign_lead()");
-        /*("#assign_error").css("display", "none");*/
     }
 }
 
