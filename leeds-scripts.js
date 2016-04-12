@@ -74,6 +74,8 @@ function leads_divison_and_init_render(leads) {
         console.log("moje ", window.my_leeds);
         render_leeds_in_place(window.my_leeds, "my-leeds");
     });
+     $("#refresh-button").removeClass("glyphicon-refresh-animate");
+
 }
 
 /*renderuje leady w okreslonym miejscu*/
@@ -384,6 +386,7 @@ function load_and_render_page_data() {
 
 /*funkcja przeladowywujaca sama tabele leadow*/
 function reload_table_leads() {
+    $("#refresh-button").addClass("glyphicon-refresh-animate");
     /*pobieram dane leady i wyswietla na ekranie*/
     get_date_type("mob_leady", function (data) {
         leads_divison_and_init_render(data.results);
