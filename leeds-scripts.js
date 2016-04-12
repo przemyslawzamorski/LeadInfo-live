@@ -2,6 +2,7 @@
 var url_base;
 window.old_click = 0;
 window.click_id = 0;
+window.lead_contact = [];
 /*sprawdzanie autoryzacji*/
 
 function check_authorization() {
@@ -237,54 +238,31 @@ function get_lead_info(this_id) {
         $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
         object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
     }
-    var contact_info_link = "/framework/rin/lead_con/" + object.LEADID;
 
-    /*dodawanie danych kontaktowych*/
-    $.getJSON(contact_info_link, function (data) {
 
-        /*usuniecie gifu doladowania*/
-        $("#contact_info_load").css("display", "None");
-        console.log(data);
+    $.when(
+        window.lead_contact_info = $.grep(window.lead_contact, function (e) {
+            return e.LEADID == object.LEADID;
+        })
+    ).then(function () {
+            if (window.lead_contact_info.length != 0) {
+                window.lead_contact_info = lead_contact_info[0];
+                console.log('jak jest', window.lead_contact_info);
+                append_contact_info(window.lead_contact_info);
+                console.log("wczytuje dane z tablicy");
 
-        /* dodawanie numeru telefonu kom */
-        if (data.PHONEMOBILE || data.PHONEHOME) {
-            $("#modal-content").append('</tr><tr><td><i class="fa fa-mobile"></i><strong> Numer telefonu</strong></td><td> </td></tr>');
+            } else {
+                var contact_info_link = "/framework/rin/lead_con/" + object.LEADID;
+                $.getJSON(contact_info_link, function (data) {
+                    console.log("wczytuje dane z serwera");
+                    window.lead_contact_info = data;
+                    window.lead_contact.push(data);
+                    console.log('jak nie ma', window.lead_contact_info);
+                    append_contact_info(window.lead_contact_info);
 
-            if (data.PHONEMOBILE) {
-                $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
-                $("#numberCell").append("<td>" + data.PHONEMOBILE + "</td> ");
-                if (window.object.UPRAWNIENIA_PRACA) {
-                    var button = '<button><a href="tel:' + data.PHONEMOBILE + '" onclick="mod()" >Zadzwon</a></button>';
-                    $("#numberCell").append(button);
-                }
+                });
             }
-
-            if (data.PHONEHOME) {
-
-                $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
-                $("#numberCell").append("<td>" + data.PHONEHOME + "</td> ");
-                if (window.object.UPRAWNIENIA_PRACA) {
-                    var button = '<button><a href="tel:' + data.PHONEHOME + '" onclick="mod()" >Zadzwon</a></button>';
-                    $("#numberCell").append(button);
-                }
-            }
-        }
-
-        /* dodawanie email */
-        if (data.EMAIL) {
-            window.contact_email = data.EMAIL;
-            $("#modal-content").append('<tr><td><i class="fa fa-envelope"></i><strong> Adres email</strong></td><td> </td></tr>');
-            $('<tr>', {id: "emailCell"}).appendTo('#modal-content');
-            $("#emailCell").append("<td>" + data.EMAIL + "</td> ");
-            if (window.object.UPRAWNIENIA_PRACA) {
-                $('<button>', {id: 'email'}).appendTo("#emailCell");
-                $("#email").attr("data-toggle", "modal");
-                $("#email").attr("data-target", "#emailTemplate");
-                $("#email").attr("onclick", "get_email_content()");
-                $("#email").text("Wyslij wiadomosc");
-            }
-        }
-    });
+        });
 
     /*button przypisania*/
     $("#assign").remove();
@@ -294,6 +272,54 @@ function get_lead_info(this_id) {
         $("#assign").text("Przypisz sobie");
         $("#assign").attr("onclick", "assign_lead()");
         /*("#assign_error").css("display", "none");*/
+    }
+}
+
+
+function append_contact_info(data) {
+    /*usuniecie gifu doladowania*/
+    $("#contact_info_load").css("display", "None");
+    console.log(data);
+    window.lead_contact.push(data);
+
+
+    /* dodawanie numeru telefonu kom */
+    if (data.PHONEMOBILE || data.PHONEHOME) {
+        $("#modal-content").append('</tr><tr><td><i class="fa fa-mobile"></i><strong> Numer telefonu</strong></td><td> </td></tr>');
+
+        if (data.PHONEMOBILE) {
+            $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
+            $("#numberCell").append("<td>" + data.PHONEMOBILE + "</td> ");
+            if (window.object.UPRAWNIENIA_PRACA) {
+                var button = '<button><a href="tel:' + data.PHONEMOBILE + '" onclick="mod()" >Zadzwon</a></button>';
+                $("#numberCell").append(button);
+            }
+        }
+
+        if (data.PHONEHOME) {
+
+            $('<tr>', {id: "numberCell"}).appendTo('#modal-content');
+            $("#numberCell").append("<td>" + data.PHONEHOME + "</td> ");
+            if (window.object.UPRAWNIENIA_PRACA) {
+                var button = '<button><a href="tel:' + data.PHONEHOME + '" onclick="mod()" >Zadzwon</a></button>';
+                $("#numberCell").append(button);
+            }
+        }
+    }
+
+    /* dodawanie email */
+    if (data.EMAIL) {
+        window.contact_email = data.EMAIL;
+        $("#modal-content").append('<tr><td><i class="fa fa-envelope"></i><strong> Adres email</strong></td><td> </td></tr>');
+        $('<tr>', {id: "emailCell"}).appendTo('#modal-content');
+        $("#emailCell").append("<td>" + data.EMAIL + "</td> ");
+        if (window.object.UPRAWNIENIA_PRACA) {
+            $('<button>', {id: 'email'}).appendTo("#emailCell");
+            $("#email").attr("data-toggle", "modal");
+            $("#email").attr("data-target", "#emailTemplate");
+            $("#email").attr("onclick", "get_email_content()");
+            $("#email").text("Wyslij wiadomosc");
+        }
     }
 }
 
