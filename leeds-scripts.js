@@ -32,7 +32,7 @@ function check_authorization() {
 
 /*logout*/
 function log_out() {
-    $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/rin/leady",
+    $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/standalone/leadinfo/index.html",
         {
             /*wylogowuwyje i czyszczcze dane*/
             statusCode: {
