@@ -378,16 +378,12 @@ function load_and_render_page_data() {
     });
 
     /*pobieram dane leady i wyswietla na ekranie */
-    get_date_type("mob_leady", function (data) {
-        leads_divison_and_init_render(data.results);
-
-    }, function () {
-        console.log("nie mozna zaladowac leadow");
-    });
+    reload_table_leads();
+    reload_table_leads();
 }
 
 /*funkcja przeladowywujaca sama tabele leadow*/
-function reload_table_leads(succes_function) {
+function reload_table_leads() {
     /*pobieram dane leady i wyswietla na ekranie*/
     get_date_type("mob_leady", function (data) {
         leads_divison_and_init_render(data.results);
