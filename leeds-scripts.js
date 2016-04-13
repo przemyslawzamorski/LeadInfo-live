@@ -74,7 +74,7 @@ function leads_divison_and_init_render(leads) {
         console.log("moje ", window.my_leeds);
         render_leeds_in_place(window.my_leeds, "my-leeds");
     });
-     $("#refresh-button").removeClass("glyphicon-refresh-animate");
+    $("#refresh-button").removeClass("glyphicon-refresh-animate");
 
 }
 
@@ -354,7 +354,7 @@ function load_and_render_page_data() {
     $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
 
     /*pobieram dane templetek email*/
-    get_date_type("EML_DEF?rodzaj=L", function (data) {
+    get_date_type(true, "EML_DEF?rodzaj=L", function (data) {
             $("#email-content-select").empty();
             window.email_template = data.results;
             for (var i = 0; i < data.results.length; i++) {
@@ -369,7 +369,7 @@ function load_and_render_page_data() {
         });
 
     /*pobieram dane usera*/
-    get_date_type("usr_ja", function (data) {
+    get_date_type(true, "usr_ja", function (data) {
         console.log('usr', data);
         window.footer = data.results[0].STOPKA_MAIL;
         window.user = data.results[0];
@@ -388,9 +388,8 @@ function load_and_render_page_data() {
 function reload_table_leads(operation) {
     $("#refresh-button").addClass("glyphicon-refresh-animate");
     /*pobieram dane leady i wyswietla na ekranie*/
-    get_date_type(operation, function (data) {
+    get_date_type(false, operation, function (data) {
         leads_divison_and_init_render(data.results);
-
     }, function () {
         console.log("nie mozna zaladowac leadow");
     });
@@ -502,9 +501,10 @@ function assign_lead() {
 /* ----funkcje fraeworka --*/
 
 /*funkcja framework - pobiera okreslony typ danych*/
-function get_date_type(type, succesfunction, errorfunction) {
+function get_date_type(asyncvalue, type, succesfunction, errorfunction) {
     $.ajax({
         type: 'GET',
+        async: asyncvalue,
         url: "/framework/rin/" + type,
         processData: true,
         data: {},
