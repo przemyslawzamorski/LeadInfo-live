@@ -25,6 +25,9 @@ function log_in() {
                         console.log("autoryzowano");
                         $("#login_error").css("display", "none");
                         $("#leeds-content").load('leadinfo/index.html');
+                        $("#leeds-content").css("display", "block");
+                        $("#login").css('display', "none");
+
 
                     }
                 }
@@ -32,8 +35,8 @@ function log_in() {
     });
 }
 
-function load_start(){
-        $("#login_form").append(' <div id="contact_info_load" class="col-centered" style="text-align: center; padding-top: 15px;"><img src="leadinfo/login/ajax-loader.gif" ></div>');
+function load_start() {
+    $("#login_form").append(' <div id="contact_info_load" class="col-centered" style="text-align: center; padding-top: 15px;"><img src="leadinfo/login/ajax-loader.gif" ></div>');
 }
 
 

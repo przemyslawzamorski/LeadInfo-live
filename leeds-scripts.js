@@ -3,32 +3,7 @@ var url_base;
 window.old_click = 0;
 window.click_id = 0;
 window.lead_contact = [];
-/*sprawdzanie autoryzacji*/
 
-function check_authorization() {
-    /*za kazdym razem przy przeladowaniu  pinguje strone i sprawdza w sesji czy jestem zalogowany*/
-    $.ajax({
-        url: "/framework/standalone/leadinfo",
-        type: "GET",
-        data: {},
-        dataType: "text xml",
-        complete: function (xhr, textStatus) {
-            console.log(xhr.status);
-            /*jak w sesji jestme zalogowany to wyswietla dane*/
-            if (xhr.status == 200) {
-                $("#login").css('display', "none");
-                $("#leeds-content").css("display", "block");
-                load_and_render_page_data();
-            }
-            else {
-                $("#username,#password,#modal-title,#modal-content,#main-content ").empty();
-                $("#login").css('display', "block");
-                $("#leeds-content").css("display", "none");
-
-            }
-        }
-    });
-}
 
 /*logout*/
 function log_out() {
