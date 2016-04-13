@@ -361,7 +361,6 @@ function load_and_render_page_data() {
                 var select_id = "template-select-" + i;
                 var selector = '<option  id=' + select_id + '>' + window.email_template[i].NAZWA + '</option>';
                 $("#email-content-select").append(selector);
-
             }
         }
         , function () {
@@ -369,7 +368,7 @@ function load_and_render_page_data() {
         });
 
     /*pobieram dane usera*/
-    get_date_type(true, "usr_ja", function (data) {
+    get_date_type(false, "usr_ja", function (data) {
         console.log('usr', data);
         window.footer = data.results[0].STOPKA_MAIL;
         window.user = data.results[0];
@@ -381,11 +380,12 @@ function load_and_render_page_data() {
 
     /*pobieram dane leady i wyswietla na ekranie */
     reload_table_leads("mob_leady?resultsPerPage=100");
-    reload_table_leads("mob_leady?resultsPerPage=100");
+
 }
 
 /*funkcja przeladowywujaca sama tabele leadow*/
 function reload_table_leads(operation) {
+    console.log("reload");
     $("#refresh-button").addClass("glyphicon-refresh-animate");
     /*pobieram dane leady i wyswietla na ekranie*/
     get_date_type(false, operation, function (data) {
