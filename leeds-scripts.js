@@ -119,6 +119,9 @@ function render_date(object_data, date,status) {
 
     $("#" + object_data.LEADID).append("<td style='width: calc(30vw - 32px ) !important;' >"+ status +"</td>");
     var time = time_difference(date);
+
+    console.log("czas numer",time_difference_number(date));
+    console.log("czas dni",time);
     if (time_difference_number(date) >= 0) {
         $("#" + object_data.LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
     } else {
@@ -483,7 +486,7 @@ function time_difference_number(time_given) {
     var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
         leed_date[3], leed_date[4], leed_date[5]);
     var current_time = new Date().getTime();
-    return (lead_time - current_time );
+    return ((lead_time - current_time)-2678400000 );
 }
 
 
@@ -540,6 +543,7 @@ function time_difference(time_given) {
     var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
         leed_date[3], leed_date[4], leed_date[5]);
     var current_time = new Date().getTime();
+
     var diffMs = (lead_time - current_time );
     var diffDays = Math.round(diffMs / 86400000) - 31;
     var diffHrs = Math.round((diffMs % 86400000) / 3600000);
