@@ -73,8 +73,9 @@ function leads_divison_and_init_render(leads) {
     })).then(function (x) {
         console.log("moje ", window.my_leeds);
         render_leeds_in_place(window.my_leeds, "my-leeds");
+        window.setTimeout(function(){$("#refresh-button").removeClass("glyphicon-refresh-animate");}, 2000);
     });
-    $("#refresh-button").removeClass("glyphicon-refresh-animate");
+
 
 }
 
