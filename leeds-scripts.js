@@ -475,6 +475,18 @@ function assign_lead() {
         });
 }
 
+
+function time_difference_number(time_given) {
+
+    var leed_date = time_given;
+    leed_date = leed_date.split(/(?:-| |:)+/);
+    var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
+        leed_date[3], leed_date[4], leed_date[5]);
+    var current_time = new Date().getTime();
+    return (lead_time - current_time );
+}
+
+
 /* ----funkcje fraeworka --*/
 
 /*funkcja framework - pobiera okreslony typ danych*/
@@ -542,14 +554,3 @@ function time_difference(time_given) {
     return time_status;
 }
 
-function time_difference_number(time_given) {
-
-    var leed_date = time_given;
-    leed_date = leed_date.split(/(?:-| |:)+/);
-    var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
-        leed_date[3], leed_date[4], leed_date[5]);
-    var current_time = new Date().getTime();
-    var diffMs = (lead_time - current_time );
-
-    return diffMs;
-}
