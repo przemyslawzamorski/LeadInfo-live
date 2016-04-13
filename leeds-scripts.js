@@ -73,7 +73,7 @@ function leads_divison_and_init_render(leads) {
     })).then(function (x) {
         console.log("moje ", window.my_leeds);
         render_leeds_in_place(window.my_leeds, "my-leeds");
-        window.setTimeout(function(){$("#refresh-button").removeClass("glyphicon-refresh-animate");}, 2000);
+        window.setTimeout(function(){$("#refresh-button").removeClass("glyphicon-refresh-animate");}, 1000);
     });
 
 
@@ -386,8 +386,9 @@ function load_and_render_page_data() {
 
 /*funkcja przeladowywujaca sama tabele leadow*/
 function reload_table_leads(operation) {
-    console.log("reload");
     $("#refresh-button").addClass("glyphicon-refresh-animate");
+    console.log("reload");
+
     /*pobieram dane leady i wyswietla na ekranie*/
     get_date_type(false, operation, function (data) {
         leads_divison_and_init_render(data.results);
