@@ -100,37 +100,32 @@ function render_leeds_in_place(data, destination) {
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
-                $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;' >Zamknięcie</td>");
-                var time = time_difference(data[i].TARGETCLOSEDATE);
-                if (time >= 0) {
-                    $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
-                } else {
-                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;padding-right: 0px !important;'>" + time + " przekroczono</td>");
-                }
+                render_date(data[i], data[i].TARGETCLOSEDATE, "Zamknięcie");
+
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
-                $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>Kontakt</td>");
-                var time = time_difference(data[i].TARGETCONTACTDATE);
-                if (time >= 0) {
-                    $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
-                } else {
-                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
-                }
+                render_date(data[i], data[i].TARGETCONTACTDATE, "Kontakt");
+
             }
             else if (!data[i].OPENDATE) {
-                $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>Otwarcie</td>");
-                var time = time_difference(data[i].TARGETOPENDATE);
-                if (time >= 0) {
-                    $("#" + data[i].LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
-                } else {
-                    $("#" + data[i].LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;;padding-right: 0px !important;'>" + time + " przekroczono</td>");
-                }
-
+                render_date(data[i], data[i].TARGETOPENDATE, "Otwarcie");
             }
             /*dodawanie aktywnosci lini*/
             if (window.old_click == data[i].LEADID) $("#" + window.old_click).addClass("active-line");
         }
     }
 }
+
+function render_date(object_data, date,status) {
+
+    $("#" + object_data.LEADID).append("<td style='width: calc(30vw - 32px ) !important;' >status</td>");
+    var time = time_difference(date);
+    if (time_difference_number(date) >= 0) {
+        $("#" + object_data.LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+    } else {
+        $("#" + object_data.LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+    }
+}
+
 
 /*informacje szczegolowe leeda*/
 function get_lead_info(this_id) {
@@ -545,4 +540,16 @@ function time_difference(time_given) {
         var time_status = diffMins + " minut";
     }
     return time_status;
+}
+
+function time_difference_number(time_given) {
+
+    var leed_date = time_given;
+    leed_date = leed_date.split(/(?:-| |:)+/);
+    var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
+        leed_date[3], leed_date[4], leed_date[5]);
+    var current_time = new Date().getTime();
+    var diffMs = (lead_time - current_time );
+
+    return diffMs;
 }
