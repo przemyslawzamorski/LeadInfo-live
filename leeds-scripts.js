@@ -454,11 +454,11 @@ function contact_accomplish(lead_id) {
         }
     );
 }
-
+/*czyszczenie divu erroru*/
 function clear_error() {
     $("#assign-error").empty();
 }
-
+/*przypisanie leadu*/
 function assign_lead() {
     $("#load_assign_gif").css("display", "block");
 
