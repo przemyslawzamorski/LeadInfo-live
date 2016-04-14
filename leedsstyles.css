@@ -183,33 +183,45 @@ tr:hover {
     color: #FF9900;
 }
 
-.loader-inner{
+.loader-inner {
     text-align: center;
     padding-top: 15px;
 
 }
 
-#leeds-content{
+#leeds-content {
     background-color: #ffffff !important;
     min-height: 100vh !important;
 }
 
-.no-padding{
-    margin: 0px 0px 0px 0px ;
+.no-padding {
+    margin: 0px 0px 0px 0px;
 }
 
-.col40{
-    width: calc(40vw - 32px ) !important;
+.col40 {
+    width: calc(40vw - 32px) !important;
 }
 
-.col30{
-    width: calc(40vw - 32px ) !important;
+.col30 {
+    width: calc(40vw - 32px) !important;
 }
 
-.col32px{
+.col32px {
     width: 32px !important;
 }
 
-.fload-right{
+.fload-right {
     float: right !important;
+}
+
+.email-field-label {
+    width: 100px;
+}
+
+.email-field {
+    display: block; !important;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

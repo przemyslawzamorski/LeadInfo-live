@@ -103,7 +103,8 @@
 
                     </div>
                     <div class="col-xs-2 col-sm-7 col-md-7  col-lg-7 ">
-                        <img class="fload-right" id="load_assign_gif" style=" display: none;" src="leadinfo/ajax-loader.gif">
+                        <img class="fload-right" id="load_assign_gif" style=" display: none;"
+                             src="leadinfo/ajax-loader.gif">
                     </div>
                     <div class="col-xs-10 col-sm-5 col-md-5  col-lg-5">
                         <div class="btn-group" id="modal-footer">
@@ -127,28 +128,24 @@
                     <button id="close" type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title"><span class="glyphicon glyphicon-list"></span> Wyslij wiadomosc</h4>
                 </div>
-                <form id="email-form" class="form-inline">
-                    <div class="form-group"
-                         style="display:block; padding-left:15px;padding-right: 15px; padding-top:5px; padding-bottom:5px;">
-                        <label style="width:100px;">Do</label>
+                <form id="email-form" class="form-inline" style="display: block;">
+                    <div class="form-group email-field">
+                        <label class="email-field-label">Do</label>
                         <input type="text" class="form-control" id="cus-email" name="email">
                     </div>
-                    <div class="form-group"
-                         style="display:block; padding-left:15px;padding-right: 15px; padding-top:5px; padding-bottom:5px;">
-                        <label style="width:100px;">Temat</label>
+                    <div class="form-group email-field" style="display: block;">
+                        <label class="email-field-label">Temat</label>
                         <input type="text" class="form-control" id="subject" name="subject">
                     </div>
-                    <div class="form-group"
-                         style="display:block; padding-left:15px;padding-right: 15px; padding-top:5px; padding-bottom:5px;">
-                        <label style="width:100px;">Szablon</label>
+                    <div class="form-group email-field" style="display: block;">
+                        <label class="email-field-label">Szablon</label>
                         <select id="email-content-select" onclick="append_email_content()" class="form-control">
 
                         </select>
                     </div>
 
 
-                    <div class="form-group"
-                         style="display:block; padding-left:15px; padding-top:5px;padding-right: 15px; padding-bottom:5px;padding-right:15px;">
+                    <div class="form-group email-field" style="display:block;">
                         <label for="comment" style="width:150px;">Tresc wiadomosci</label>
                         <textarea class="form-control" rows="5" id="comment" name="comment"
                                   style="display:block; width:100%;"></textarea>
