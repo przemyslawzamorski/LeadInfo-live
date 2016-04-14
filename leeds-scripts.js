@@ -412,7 +412,6 @@ function contact_accomplish(lead_id) {
                 $("#assign-error").empty();
                 $("#load_assign_gif").css("display", "none");
                 $("#assign-error").append('<div class="alert alert-success"> Pomyślnie zaznaczono skontatkowanie.</div>');
-                console.log("przypisano ");
             });
         },
         function () {
@@ -449,7 +448,6 @@ function assign_lead() {
                         $("#assign-error").empty();
                         $("#load_assign_gif").css("display", "none");
                         $("#assign-error").append('<div class="alert alert-success"> Pomyślnie przypisano lead do Twojego uzytkownika.</div>');
-                        console.log("przypisano ");
                     });
                 },
                 function () {
