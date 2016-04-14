@@ -1,9 +1,6 @@
-/* TODO system logowania i wylogowania*/
-var url_base;
 window.old_click = 0;
 window.click_id = 0;
 window.lead_contact = [];
-
 
 /*logout*/
 function log_out() {
@@ -22,8 +19,6 @@ function log_out() {
             }
         });
 }
-
-/*--------------------*/
 
 /*podzial leadow po statusie i wywołanie renderowania*/
 function leads_divison_and_init_render(leads) {
@@ -144,7 +139,6 @@ function get_lead_info(this_id) {
     });
     if (single_lead.length != 0) window.object = single_lead[0];
 
-
     single_lead = $.grep(window.my_leeds, function (e) {
         return e.LEADID == this_id;
     });
@@ -191,7 +185,6 @@ function get_lead_info(this_id) {
         $("#modal-content").append("<tr><td>Data kontaktu</td><td> " + object.CONTACTDATE.slice(0, 16) + "</td></tr>");
     }
     if (object.TARGETCLOSEDATE) {
-
         $("#modal-content").append("<tr><td>Szacowana data zamkniecia</td><td> " + object.TARGETCLOSEDATE.slice(0, 16) + "</td></tr>");
     }
     if (object.CLOSEDATE) {
@@ -204,6 +197,7 @@ function get_lead_info(this_id) {
 
     /* //Dane kontaktowe //*/
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
+
     /*gif doładowywania danych kontaktowych */
     $("#contact_info_load").remove();
     $("#modal-content").append(' <div id="contact_info_load" class="col-centered loader-inner" ><img src="leadinfo/ajax-loader.gif" ></div>');
@@ -213,7 +207,7 @@ function get_lead_info(this_id) {
         object.POZDROWIENIE + ' ' + object.FIRSTNAME + ' ' + object.LASTNAME + '</td><td>  </td></tr>');
     }
 
-
+    /*pobieranie albo z serwera albo z tablicy danych kontaktowych*/
     $.when(
         window.lead_contact_info = $.grep(window.lead_contact, function (e) {
             return e.LEADID == object.LEADID;
@@ -222,12 +216,9 @@ function get_lead_info(this_id) {
             if (window.lead_contact_info.length != 0) {
                 window.lead_contact_info = lead_contact_info[0];
                 append_contact_info(window.lead_contact_info);
-                console.log("wczytuje dane z tablicy");
-
             } else {
                 var contact_info_link = "/framework/rin/lead_con/" + object.LEADID;
                 $.getJSON(contact_info_link, function (data) {
-                    console.log("wczytuje dane z serwera");
                     window.lead_contact_info = data;
                     window.lead_contact.push(data);
                     append_contact_info(window.lead_contact_info);
@@ -249,9 +240,9 @@ function get_lead_info(this_id) {
 function append_contact_info(data) {
     /*usuniecie gifu doladowania*/
     $("#contact_info_load").css("display", "None");
-    console.log(data);
-    window.lead_contact.push(data);
 
+    /*dodanie do tablicy danych konaktowych*/
+    window.lead_contact.push(data);
 
     /* dodawanie numeru telefonu kom */
     if (data.PHONEMOBILE || data.PHONEHOME) {
