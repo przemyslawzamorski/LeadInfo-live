@@ -52,9 +52,12 @@ function leads_divison_and_init_render(leads) {
             $("#refresh-button").removeClass("glyphicon-refresh-animate");
         }, 1000);
     });
-
-
 }
+
+
+
+
+
 
 /*renderuje leady w okreslonym miejscu*/
 function render_leeds_in_place(data, destination) {
@@ -85,18 +88,18 @@ function render_leeds_in_place(data, destination) {
             /*dodawanie statusu nowy otwary lub mój*/
             switch (destination) {
                 case "new-leads":
-                    $("#" + data[i].LEADID).append("<td class='status-cell' style='background-color: #FC5151; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell red-background'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "open-no-attribution":
-                    $("#" + data[i].LEADID).append("<td class='status-cell' style='background-color: #FFFF99; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell yellow-background'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
                 case "my-leeds":
-                    $("#" + data[i].LEADID).append("<td class='status-cell' style='background-color: #4CAF50; max-width: 32px !important;'><i class='fa fa-exclamation-triangle'></i></td>");
+                    $("#" + data[i].LEADID).append("<td class='status-cell green-background'><i class='fa fa-exclamation-triangle'></i></td>");
                     break;
             }
 
             /*dodawanie id leada oraz nazwy od kogo  */
-            $("#" + data[i].LEADID).append("<td style='width: calc(40vw - 32px ) !important;' >" + data[i].LEADID + "</br><p style=' word-break: break-all;'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
+            $("#" + data[i].LEADID).append("<td class='main-information-column' >" + data[i].LEADID + "</br><p class = 'brake-lines'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
             if (data[i].CONTACTDATE && data[i].OPENDATE) {
@@ -115,17 +118,17 @@ function render_leeds_in_place(data, destination) {
     }
 }
 
-function render_date(object_data, date,status) {
+function render_date(object_data, date, status) {
 
-    $("#" + object_data.LEADID).append("<td style='width: calc(30vw - 32px ) !important;' >"+ status +"</td>");
+    $("#" + object_data.LEADID).append("<td class='main-information-column' >" + status + "</td>");
     var time = time_difference(date);
 
-    console.log("czas numer",time_difference_number(date));
-    console.log("czas dni",time);
+    console.log("czas numer", time_difference_number(date));
+    console.log("czas dni", time);
     if (time_difference_number(date) >= 0) {
-        $("#" + object_data.LEADID).append("<td style='width: calc(30vw - 32px ) !important;'>" + time + "</td>");
+        $("#" + object_data.LEADID).append("<td class='main-information-column'>" + time + "</td>");
     } else {
-        $("#" + object_data.LEADID).append("<td class='warning' style='width: calc(30vw - 32px ) !important; padding-left: 0px !important;padding-right: 0px !important;'>" + time + " przekroczono</td>");
+        $("#" + object_data.LEADID).append("<td class='warning no-side-padding main-information-column' >" + time + " przekroczono</td>");
     }
 }
 
@@ -486,7 +489,7 @@ function time_difference_number(time_given) {
     var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
         leed_date[3], leed_date[4], leed_date[5]);
     var current_time = new Date().getTime();
-    return ((lead_time - current_time)-2678400000 );
+    return ((lead_time - current_time) - 2678400000 );
 }
 
 
