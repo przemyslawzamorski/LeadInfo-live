@@ -162,6 +162,11 @@ tr:hover {
     background-color: #4CAF50;
 }
 
+.white-background{
+    background-color: #ffffff;
+
+}
+
 .main-information-column {
     width: calc(40vw - 32px) !important;
 }
@@ -181,6 +186,10 @@ tr:hover {
 
 .font-orange {
     color: #FF9900;
+}
+
+.font-green {
+    color: #4CAF50;
 }
 
 .loader-inner {
@@ -224,4 +233,12 @@ tr:hover {
     padding-right: 15px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+.no-border{
+    border: none!important;
+}
+
+.text-center{
+    text-align:center;
 }
