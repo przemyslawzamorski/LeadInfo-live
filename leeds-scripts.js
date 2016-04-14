@@ -119,8 +119,6 @@ function render_date(object_data, date, status) {
     $("#" + object_data.LEADID).append("<td class='main-information-column' >" + status + "</td>");
     var time = time_difference(date);
 
-    console.log("czas numer", time_difference_number(date));
-    console.log("czas dni", time);
     if (time_difference_number(date) >= 0) {
         $("#" + object_data.LEADID).append("<td class='main-information-column'>" + time + "</td>");
     } else {
@@ -248,10 +246,6 @@ function get_lead_info(this_id) {
 }
 
 
-
-
-
-
 function append_contact_info(data) {
     /*usuniecie gifu doladowania*/
     $("#contact_info_load").css("display", "None");
@@ -300,9 +294,6 @@ function append_contact_info(data) {
 }
 
 
-
-
-
 /*na wybor szablonu dodawanie szablonu do pola tekstowego wraz z  dodaniem stopki*/
 function append_email_content() {
     var button_content = $("#email-content-select option:selected").text();
@@ -332,7 +323,7 @@ function mod() {
 
 /*funkcja wczytujaca wszystkie dane na strone:  usr , template email */
 function load_and_render_page_data() {
-    $("#new-leads").append(' <div style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
+    $("#new-leads").append(' <div class="loader-inner"><img src="leadinfo/ajax-loader.gif" ></div>');
 
     /*pobieram dane templetek email*/
     get_date_type(true, "EML_DEF?rodzaj=L", function (data) {
