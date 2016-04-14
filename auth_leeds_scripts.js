@@ -5,7 +5,7 @@ window.lead_contact = [];
 
 /*logout*/
 function log_out() {
-    $.ajax("https://a:a@system.fastdata.com.pl:4567/framework/standalone/leadinfo/index.html",
+    $.ajax("https://a:a@system.fastdata.com.pl:4567/apps/leadinfo/auth_leeds_styles.css",
         {
             /*wylogowuwyje i czyszczcze dane*/
             statusCode: {
@@ -218,7 +218,7 @@ function get_lead_info(this_id) {
                 window.lead_contact_info = lead_contact_info[0];
                 append_contact_info(window.lead_contact_info);
             } else {
-                var contact_info_link = "/framework/rin/lead_con/" + object.LEADID;
+                var contact_info_link = "/rin/lead_con/" + object.LEADID;
                 $.getJSON(contact_info_link, function (data) {
                     window.lead_contact_info = data;
                     window.lead_contact.push(data);
