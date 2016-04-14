@@ -64,13 +64,13 @@ function render_leeds_in_place(data, destination) {
     if (data.length == 0) {
         switch (destination) {
             case "new-leads":
-                $("#" + destination).append("<td class='status-cell' style='background-color: #FC5151;'><i class='fa fa-exclamation-triangle'></i></td><td>Brak nowych leadow</td>");
+                $("#" + destination).append("<td class='status-cell red-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak nowych leadow</td>");
                 break;
             case "open-no-attribution":
-                $("#" + destination).append("<td class='status-cell' style='background-color: #FFFF99;'><i class='fa fa-exclamation-triangle'></i></td><td>Brak otwartch nieprzypisanych leadow</td>");
+                $("#" + destination).append("<td class='status-cell yellow-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak otwartch nieprzypisanych leadow</td>");
                 break;
             case "my-leeds":
-                $("#" + destination).append("<td class='status-cell' style='background-color: #4CAF50;'><i class='fa fa-exclamation-triangle'></i></td><td>Brak twoich otwartych leadow</td>");
+                $("#" + destination).append("<td class='status-cell green-background' ><i class='fa fa-exclamation-triangle'></i></td><td>Brak twoich otwartych leadow</td>");
                 break;
         }
     }
