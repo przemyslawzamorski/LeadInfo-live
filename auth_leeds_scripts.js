@@ -1,3 +1,4 @@
+
 window.old_click = 0;
 window.click_id = 0;
 window.lead_contact = [];
@@ -200,7 +201,7 @@ function get_lead_info(this_id) {
 
     /*gif doładowywania danych kontaktowych */
     $("#contact_info_load").remove();
-    $("#modal-content").append(' <div id="contact_info_load" class="col-centered loader-inner" ><img src="leadinfo/ajax-loader.gif" ></div>');
+    $("#modal-content").append(' <div id="contact_info_load" class="col-centered loader-inner" ><img src="scripts/ajax-loader.gif" ></div>');
 
     if (object.FIRSTNAME && object.LASTNAME) {
         $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
@@ -314,7 +315,7 @@ function mod() {
 
 /*funkcja wczytujaca wszystkie dane na strone:  usr , template email */
 function load_and_render_page_data() {
-    $("#new-leads").append(' <div class="loader-inner"><img src="leadinfo/ajax-loader.gif" ></div>');
+    $("#new-leads").append(' <div class="loader-inner"><img src="scripts/ajax-loader.gif" ></div>');
 
     /*pobieram dane templetek email*/
     get_date_type(true, "EML_DEF?rodzaj=L", function (data) {
@@ -482,7 +483,7 @@ function get_date_type(asyncvalue, type, succesfunction, errorfunction) {
     $.ajax({
         type: 'GET',
         async: asyncvalue,
-        url: "/framework/rin/" + type,
+        url: "/rin/" + type,
         processData: true,
         data: {},
         crossDomain: true,
@@ -501,7 +502,7 @@ function execute_given_operation(operation, operation_data, succes_function, err
     $.ajax({
         async: true,
         crossDomain: true,
-        url: "/framework/ope/" + operation,
+        url: "/ope/" + operation,
         method: "POST",
         dataType: 'json',
         data: operation_data,
