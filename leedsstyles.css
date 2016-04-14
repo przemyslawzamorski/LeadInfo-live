@@ -188,3 +188,28 @@ tr:hover {
     padding-top: 15px;
 
 }
+
+#leeds-content{
+    background-color: #ffffff !important;
+    min-height: 100vh !important;
+}
+
+.no-padding{
+    margin: 0px 0px 0px 0px ;
+}
+
+.col40{
+    width: calc(40vw - 32px ) !important;
+}
+
+.col30{
+    width: calc(40vw - 32px ) !important;
+}
+
+.col32px{
+    width: 32px !important;
+}
+
+.fload-right{
+    float: right !important;
+}

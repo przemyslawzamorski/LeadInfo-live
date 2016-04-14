@@ -41,15 +41,15 @@
 <!--login menu-->
 
 
-<div id="leeds-content" style=" background-color: #ffffff !important; min-height: 100vh !important; ">
+<div id="leeds-content" style="background-color: #ffffff !important;">
     <!--leads header-->
-    <div class="row" style="margin: 0px 0px 0px 0px ;">
+    <div class="row no-padding">
         <div class="col-md-6 col-lg-6 col-sm-6 col-xs-7">
             <h3 style="padding-left: 10px;"><i class="fa fa-cogs"> </i> <strong>Lead</strong>info </h3>
         </div>
 
         <div class="col-md-6 col-lg-6 col-sm-6 col-xs-5 pull-right btn-group" style="padding: 10px 2px 0px 0px;">
-            <div class="btn-group" style="float: right;">
+            <div class="btn-group fload-right" style="float: right;">
                 <button type="button" class="btn " onclick="reload_table_leads('mob_leady')"><i id="refresh-button"
                                                                                                 class="fa fa-refresh "></i>
                 </button>
@@ -64,10 +64,10 @@
     <!-- leeds table -->
     <table id="main-content">
         <tr>
-            <th style='width: 32px !important; '></th>
-            <th style='width: calc(40vw - 32px ) !important;'>Numer lead</th>
-            <th style='width: calc(30vw - 32px ) !important;'>Kolejny krok</th>
-            <th style='width: calc(30vw - 32px ) !important;'>Pozostało</th>
+            <th class="col32px"></th>
+            <th class="col40">Numer lead</th>
+            <th class="col30">Kolejny krok</th>
+            <th class="col30">Pozostało</th>
         </tr>
     </table>
 
@@ -103,7 +103,7 @@
 
                     </div>
                     <div class="col-xs-2 col-sm-7 col-md-7  col-lg-7 ">
-                        <img id="load_assign_gif" style="float: right; display: none;" src="leadinfo/ajax-loader.gif">
+                        <img class="fload-right" id="load_assign_gif" style=" display: none;" src="leadinfo/ajax-loader.gif">
                     </div>
                     <div class="col-xs-10 col-sm-5 col-md-5  col-lg-5">
                         <div class="btn-group" id="modal-footer">
