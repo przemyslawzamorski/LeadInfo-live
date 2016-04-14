@@ -399,7 +399,7 @@ function contact_accomplish(lead_id) {
 
     execute_given_operation("LEAD_INBOX_MENU_KONTAKT_WYKONANY", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         function () {
-            $.when(reload_table_leads("mob_leady?resultsPerPage=100")).then(function () {
+            $.when(reload_table_leads("mob_leady?resultsPerPage=100&forceRefresh")).then(function () {
                 get_lead_info(window.click_id);
                 $("#assign-error").empty();
                 $("#load_assign_gif").css("display", "none");
@@ -435,7 +435,7 @@ function assign_lead() {
 
             execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
                 function () {
-                    $.when(reload_table_leads("mob_leady?resultsPerPage=100")).then(function () {
+                    $.when(reload_table_leads("mob_leady?resultsPerPage=100&forceRefresh")).then(function () {
                         get_lead_info(window.click_id);
                         $("#assign-error").empty();
                         $("#load_assign_gif").css("display", "none");
