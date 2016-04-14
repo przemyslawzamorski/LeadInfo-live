@@ -150,27 +150,41 @@ tr:hover {
     }
 }
 
-.red-background{
+.red-background {
     background-color: #FC5151;
 }
 
-.yellow-background{
+.yellow-background {
     background-color: #FFFF99;
 }
 
-.green-background{
+.green-background {
     background-color: #4CAF50;
 }
 
-.main-information-column{
-    width: calc(40vw - 32px ) !important;
+.main-information-column {
+    width: calc(40vw - 32px) !important;
 }
 
-.brake-lines{
+.brake-lines {
     word-break: break-all;
 }
 
-.no-side-padding{
-     padding-left: 0px !important;
+.no-side-padding {
+    padding-left: 0px !important;
     padding-right: 0px !important;
+}
+
+.font-red {
+    color: #FC5151;
+}
+
+.font-orange {
+    color: #FF9900;
+}
+
+.loader-inner{
+    text-align: center;
+    padding-top: 15px;
+
 }

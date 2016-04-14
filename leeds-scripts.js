@@ -55,10 +55,6 @@ function leads_divison_and_init_render(leads) {
 }
 
 
-
-
-
-
 /*renderuje leady w okreslonym miejscu*/
 function render_leeds_in_place(data, destination) {
 
@@ -132,12 +128,11 @@ function render_date(object_data, date, status) {
     }
 }
 
-
 /*informacje szczegolowe leeda*/
 function get_lead_info(this_id) {
-    $("#" + window.old_click).removeClass("active-line");
     window.click_id = this_id;
     window.old_click = window.click_id;
+    $("#" + window.old_click).removeClass("active-line");
     $("#" + window.click_id).addClass("active-line");
     console.log(this_id);
 
@@ -168,9 +163,9 @@ function get_lead_info(this_id) {
         var nazwa_leedu = object.KAMPANIA
     }
     if (object.STATUSCODE == "NEW") {
-        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: red;">' + "Nowy" + '</span>';
+        status = nazwa_leedu + ' (' + object.LEADID + ') - <span class="font-red">' + "Nowy" + '</span>';
     } else {
-        status = nazwa_leedu + ' (' + object.LEADID + ') - <span style="color: orange;">' + "Otwarty";
+        status = nazwa_leedu + ' (' + object.LEADID + ') - <span class="font-orange">' + "Otwarty";
         if (object.CONTACTDATE) {
             status += ' - skontaktowany</span>';
         } else {
@@ -181,7 +176,7 @@ function get_lead_info(this_id) {
 
     /*append content to leeds information modal */
     $("#modal-content").empty();
-    $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane podstawowe </th><th>  </th></tr>');
+    $("#modal-content").append('<tr><th><i class="fa fa-bars"></i>  Dane podstawowe </th><th>  </th></tr>');
     if (object.PRZYPISANY) {
         $("#modal-content").append("<tr><td>Przypisany do</td><td> " + object.PRZYPISANY + "</td></tr>");
     }
@@ -205,7 +200,7 @@ function get_lead_info(this_id) {
         $("#modal-content").append("<tr><td>Data zamkniecia</td><td> " + object.CLOSEDATE.slice(0, 16) + "</td></tr>");
     }
     if (object.OPIS_KAMPANII) {
-        $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Opis </th><th>  </th></tr>');
+        $("#modal-content").append('<tr><th><i class="fa fa-bars"></i>  Opis </th><th>  </th></tr>');
         $("#modal-content").append("<tr><td>" + object.OPIS_KAMPANII + "</td><tr>  ");
     }
 
@@ -213,7 +208,7 @@ function get_lead_info(this_id) {
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
     /*gif doładowywania danych kontaktowych */
     $("#contact_info_load").remove();
-    $("#modal-content").append(' <div id="contact_info_load" class="col-centered" style="text-align: center; padding-top: 15px;"><img src="leadinfo/ajax-loader.gif" ></div>');
+    $("#modal-content").append(' <div id="contact_info_load" class="col-centered loader-inner" ><img src="leadinfo/ajax-loader.gif" ></div>');
 
     if (object.FIRSTNAME && object.LASTNAME) {
         $("#modal-content").append('<tr><td class="normal-font"><i class="fa fa-user"> </i> ' +
@@ -251,6 +246,10 @@ function get_lead_info(this_id) {
         $("#assign").attr("onclick", "assign_lead()");
     }
 }
+
+
+
+
 
 
 function append_contact_info(data) {
@@ -299,6 +298,9 @@ function append_contact_info(data) {
         }
     }
 }
+
+
+
 
 
 /*na wybor szablonu dodawanie szablonu do pola tekstowego wraz z  dodaniem stopki*/
