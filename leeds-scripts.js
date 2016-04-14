@@ -128,9 +128,9 @@ function render_date(object_data, date, status) {
 
 /*informacje szczegolowe leeda*/
 function get_lead_info(this_id) {
+    $("#" + window.old_click).removeClass("active-line");
     window.click_id = this_id;
     window.old_click = window.click_id;
-    $("#" + window.old_click).removeClass("active-line");
     $("#" + window.click_id).addClass("active-line");
     console.log(this_id);
 
