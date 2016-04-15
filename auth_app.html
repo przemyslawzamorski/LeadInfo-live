@@ -138,7 +138,7 @@
                     </div>
                     <div class="form-group email-field" style="display: block;">
                         <label class="email-field-label">Szablon</label>
-                        <select id="email-content-select" onclick="append_email_content()" class="form-control">
+                        <select id="email-content-select"  class="form-control">
 
                         </select>
                     </div>
@@ -199,8 +199,11 @@
 
     $(document).ready(function () {
         load_and_render_page_data();
-
-
+        $("#email-content-select")
+                .change(function () {
+                    append_email_content();
+                })
+                .change();
     });
 
 
