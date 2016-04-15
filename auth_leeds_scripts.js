@@ -26,7 +26,7 @@ function leads_divison_and_init_render(leads) {
     $.when(window.new_leads = $.grep(leads, function (e) {
         return e.STATUSCODE == "NEW"
     })).then(function () {
-        console.log("Nowe ", window.new_leads);
+        /*console.log("Nowe ", window.new_leads);*/
         render_leeds_in_place(window.new_leads, "new-leads");
     });
 
@@ -34,14 +34,14 @@ function leads_divison_and_init_render(leads) {
         return e.STATUSCODE == "OPEN" && !e.UPRAWNIENIA_PRACA
 
     })).then(function (x) {
-        console.log("otwarte z ", window.open_with);
+        /*console.log("otwarte z ", window.open_with);*/
         render_leeds_in_place(window.open_with, "open-no-attribution");
     });
 
     $.when(window.my_leeds = $.grep(leads, function (e) {
         return e.UPRAWNIENIA_PRACA == window.usr_short && e.STATUSCODE == "OPEN"
     })).then(function (x) {
-        console.log("moje ", window.my_leeds);
+       /* console.log("moje ", window.my_leeds);*/
         render_leeds_in_place(window.my_leeds, "my-leeds");
         window.setTimeout(function () {
             $("#refresh-button").removeClass("glyphicon-refresh-animate");
@@ -127,7 +127,7 @@ function get_lead_info(this_id) {
     window.click_id = this_id;
     window.old_click = window.click_id;
     $("#" + window.click_id).addClass("active-line");
-    console.log(this_id);
+   /* console.log(this_id);*/
 
     var single_lead = $.grep(window.new_leads, function (e) {
         return e.LEADID == this_id;
@@ -145,7 +145,7 @@ function get_lead_info(this_id) {
     if (single_lead.length != 0) window.object = single_lead[0];
 
 
-    console.log('a', object);
+    /*console.log('a', object);*/
     var status = '';
     var nazwa_leedu = '';
 
@@ -332,13 +332,13 @@ function load_and_render_page_data() {
 
     /*pobieram dane usera*/
     get_date_type(false, "usr_ja", function (data) {
-        console.log('usr', data);
+       /* console.log('usr', data);*/
         window.footer = data.results[0].STOPKA_MAIL;
         window.user = data.results[0];
         window.usr_short = window.user.SKROT;
-        console.log(window.usr_short);
+       /* console.log(window.usr_short);*/
     }, function () {
-        console.log("nie mozna zaladowac daych usera");
+        /*console.log("nie mozna zaladowac daych usera");*/
     });
 
     /*pobieram dane leady i wyswietla na ekranie */
@@ -349,13 +349,13 @@ function load_and_render_page_data() {
 /*funkcja przeladowywujaca sama tabele leadow*/
 function reload_table_leads(operation) {
     $("#refresh-button").addClass("glyphicon-refresh-animate");
-    console.log("reload");
+    /*console.log("reload");*/
 
     /*pobieram dane leady i wyswietla na ekranie*/
     get_date_type(false, operation, function (data) {
         leads_divison_and_init_render(data.results);
     }, function () {
-        console.log("nie mozna zaladowac leadow");
+       /* console.log("nie mozna zaladowac leadow");*/
     });
 }
 
@@ -371,13 +371,13 @@ function send_email() {
         .replace(/\\t/g, "\\t")
         .replace(/\\b/g, "\\b")
         .replace(/\\f/g, "\\f");
-    console.log(email_text);
+   /* console.log(email_text);*/
 
 
     execute_given_operation("MOB_LEAD_MENU_WYSLIJ_EMAIL",
         "{\"recpient\":" + '"' + emai_content[0].value + '"' + ",\"subject\":" + '"' + emai_content[1].value + '"' + ",\"tresc\":" + email_text + "}",
         function (data) {
-            console.log("success");
+          /*  console.log("success");*/
         },
         function (data) {
         },
@@ -409,7 +409,7 @@ function contact_accomplish(lead_id) {
             $("#assign-error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
-            console.log("Nie mozna uaktualnic statusu kontaktu");
+           /* console.log("Nie mozna uaktualnic statusu kontaktu");*/
         },
         function () {
         },
@@ -430,8 +430,6 @@ function assign_lead() {
 
     execute_given_operation("LEAD_INBOX_MENU_DODAJ_FOLDER", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
         function () {
-            console.log('dodano');
-
             execute_given_operation("LEAD_INBOX_MENU_UAKT_SATUS", "{\"LEADYLEADID\":" + window.object.LEADID + " }\n",
                 function () {
                     $.when(reload_table_leads("mob_leady?resultsPerPage=100&forceRefresh")).then(function () {
@@ -445,7 +443,7 @@ function assign_lead() {
                     $("#assign-error").empty();
                     $("#load_assign_gif").css("display", "none");
                     $("#assign-error").append('<div class="alert alert-danger"> Nie mozna uaktualnic statusu</div>');
-                    console.log("nie mozna uaktualnic statusu");
+                   /* console.log("nie mozna uaktualnic statusu");*/
                 }, function () {
                 }, function () {
                 }
@@ -455,11 +453,9 @@ function assign_lead() {
             $("#assign-error").empty();
             $("#load_assign_gif").css("display", "none");
             $("#assign-error").append('<div class="alert alert-danger"> Nie mozna dodac folderu.</div>');
-            console.log("nie mozna dodać folderu");
+           /* console.log("nie mozna dodać folderu");*/
         }, function () {
-            console.log('complete');
         }, function () {
-            console.log('done');
         });
 }
 
