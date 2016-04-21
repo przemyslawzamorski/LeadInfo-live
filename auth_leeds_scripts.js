@@ -117,7 +117,7 @@ function render_date(object_data, date, status) {
     if (time_difference_number(date) >= 0) {
         $("#" + object_data.LEADID).append("<td class='main-information-column'>" + time + "</td>");
     } else {
-        $("#" + object_data.LEADID).append("<td class='warning no-side-padding main-information-column' >" + time + " przekroczono</td>");
+        $("#" + object_data.LEADID).append("<td class='warning no-side-padding main-information-column' >" + time.replace("-", "") + " przekroczono</td>");
     }
 }
 
