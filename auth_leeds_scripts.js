@@ -23,6 +23,8 @@ function log_out() {
 /*podzial leadow po statusie i wywołanie renderowania*/
 function leads_divison_and_init_render(leads) {
 
+
+
     $.when(window.new_leads = $.grep(leads, function (e) {
         return e.STATUSCODE == "NEW"
     })).then(function () {
@@ -43,6 +45,9 @@ function leads_divison_and_init_render(leads) {
     })).then(function (x) {
         /* console.log("moje ", window.my_leeds);*/
         render_leeds_in_place(window.my_leeds, "my-leeds");
+        $("#login").css("display", "none");
+        $("#leeds-content").css("display", "block");
+
         window.setTimeout(function () {
             $("#refresh-button").removeClass("glyphicon-refresh-animate");
         }, 1000);
