@@ -21,7 +21,7 @@ function log_out() {
 }
 
 /*podzial leadow po statusie i wywołanie renderowania*/
-function leads_divison_and_init_render(leads) {
+function remove_login_leads_divison_and_init_render(leads) {
 
 
 
@@ -322,7 +322,7 @@ function load_and_render_page_data() {
     $("#new-leads").append(' <div class="loader-inner"><img src="scripts/ajax-loader.gif" ></div>');
 
     /*pobieram dane templetek email*/
-    get_date_type(true, "EML_DEF?rodzaj=L", function (data) {
+    get_date_type(true, "/rin/EML_DEF?rodzaj=L", function (data) {
             $("#email-content-select").empty();
             window.email_template = data.results;
             for (var i = 0; i < data.results.length; i++) {
@@ -336,7 +336,7 @@ function load_and_render_page_data() {
         });
 
     /*pobieram dane usera*/
-    get_date_type(false, "usr_ja", function (data) {
+    get_date_type(false, "/rin/usr_ja", function (data) {
         /* console.log('usr', data);*/
         window.footer = data.results[0].STOPKA_MAIL;
         window.user = data.results[0];
@@ -347,7 +347,7 @@ function load_and_render_page_data() {
     });
 
     /*pobieram dane leady i wyswietla na ekranie */
-    reload_table_leads("mob_leady?resultsPerPage=100");
+    reload_table_leads("/rin/mob_leady?resultsPerPage=100");
 
 }
 
@@ -358,7 +358,7 @@ function reload_table_leads(operation) {
 
     /*pobieram dane leady i wyswietla na ekranie*/
     get_date_type(false, operation, function (data) {
-        leads_divison_and_init_render(data.results);
+        remove_login_leads_divison_and_init_render(data.results);
     }, function () {
         /* console.log("nie mozna zaladowac leadow");*/
     });
