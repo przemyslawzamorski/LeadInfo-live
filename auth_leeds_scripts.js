@@ -4,7 +4,11 @@ window.lead_contact = [];
 
 /*logout*/
 function log_out() {
-    $.ajax("https://a:a@system.fastdata.com.pl:4567/apps/leadinfo/auth_leeds_styles.css",
+    var url      = window.location.href;
+    var res = url.replace("https://", "");
+
+    $.ajax("https://a:a@"+res+"auth_leeds_styles.css"
+        /*"https://a:a@system.fastdata.com.pl:4567/apps/leadinfo/auth_leeds_styles.css"*/,
         {
             /*wylogowuwyje i czyszczcze dane*/
             statusCode: {
@@ -15,6 +19,8 @@ function log_out() {
                     $("#login").css("display", "block");
                     $("#leeds-content").css("display", "none");
                     location.reload();
+
+                    console.log("url",res);
                 }
             }
         });
