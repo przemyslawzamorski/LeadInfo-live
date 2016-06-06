@@ -485,6 +485,15 @@ function assign_lead() {
 
 function time_difference_number(time_given) {
 
+
+    /*var leed_date = time_given;
+    leed_date = leed_date.split(/(?:-| |:)+/);
+    var correct_month = leed_date[1] -1;
+    var lead_time = new Date(leed_date[0], correct_month, leed_date[2],
+        leed_date[3], leed_date[4], leed_date[5]);
+    var current_time = new Date(Date.now());
+    var diffMs = (lead_time - current_time );*/
+
     var leed_date = time_given;
     leed_date = leed_date.split(/(?:-| |:)+/);
     var lead_time = new Date(leed_date[0], leed_date[1], leed_date[2],
