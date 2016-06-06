@@ -104,7 +104,11 @@ function render_leeds_in_place(data, destination) {
             $("#" + data[i].LEADID).append("<td class='main-information-column' >" + data[i].LEADID + "</br><p class = 'brake-lines'>" + data[i].FIRSTNAME + " " + data[i].LASTNAME + "</p></td>");
 
             /*dodawanie kolejnego kroku oraz czasu ktory pozostał*/
-            if (data[i].CONTACTDATE && data[i].OPENDATE) {
+		if (!data[i].TARGETCONTACTDATE && !data[i].TARGETCLOSEDATE && !data[i].TARGETOPENDATE){
+		
+		}
+
+            else if (data[i].CONTACTDATE && data[i].OPENDATE) {
                 render_date(data[i], data[i].TARGETCLOSEDATE, "Zamknięcie");
 
             } else if (data[i].OPENDATE && !data[i].CONTACTDATE) {
