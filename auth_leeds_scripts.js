@@ -160,7 +160,7 @@ function get_lead_info(this_id) {
     if (single_lead.length != 0) window.object = single_lead[0];
 
 
-    /*console.log('a', object);*/
+    console.log('a', object);
     var status = '';
     var nazwa_leedu = '';
 
@@ -207,8 +207,14 @@ function get_lead_info(this_id) {
     }
     if (object.OPIS_KAMPANII) {
         $("#modal-content").append('<tr><th><i class="fa fa-bars"></i>  Opis </th><th>  </th></tr>');
-        $("#modal-content").append("<tr><td>" + object.OPIS_KAMPANII + "</td><tr>  ");
+
+        $("#modal-content").append('<p style="padding-left: 10px; padding-top: 5px;">' + object.OPIS_KAMPANII + '</p>'  );
     }
+
+     if (object.MODEL1) {
+        $("#modal-content").append('<tr><td>  Dotyczy </td><td>'+ object.MODEL1 +' </td></tr>');
+    }
+
 
     /* //Dane kontaktowe //*/
     $("#modal-content").append('<tr><th class="normal-font"><i class="fa fa-bars"></i>  Dane kontaktowe </th><th>  </th></tr>');
@@ -486,13 +492,7 @@ function assign_lead() {
 function time_difference_number(time_given) {
 
 
-    /*var leed_date = time_given;
-    leed_date = leed_date.split(/(?:-| |:)+/);
-    var correct_month = leed_date[1] -1;
-    var lead_time = new Date(leed_date[0], correct_month, leed_date[2],
-        leed_date[3], leed_date[4], leed_date[5]);
-    var current_time = new Date(Date.now());
-    var diffMs = (lead_time - current_time );*/
+
 
     var leed_date = time_given;
     leed_date = leed_date.split(/(?:-| |:)+/);
